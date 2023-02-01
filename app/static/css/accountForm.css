@@ -1,0 +1,49 @@
+.MyMain .MyUserMain{
+    background-color: white;
+    margin: 10px;
+    padding: 10px;
+    height: 61vh;
+}
+
+.MyMain .MyUserMain .MyMainTitle{
+    display: block;
+    color: #28313d;
+    font-weight: 700;
+    font-size: 30px;
+}
+
+.MyMain .MyUserMain .sub_copy{
+    margin: 0vw 0 0.3vw;
+    color: #777;
+    font-size: 13px;
+}
+
+.MyMain .MyUserMain .sub_copy2{
+    color: #4e545d;
+    font-size:12px;
+}
+
+.MyBox{
+    border: 1px solid #0F4C75;
+    color: #1B262C;
+    width: 60vw;
+    border-radius: 3px;
+    text-align: center;
+    margin-bottom: 1vw;
+    padding: 0.1vw;
+    border-collapse: collapse;
+}
+
+.MyBox tr{
+    padding-bottom: 1vw;
+}
+
+.MyBox th{
+    border-right: solid 5px white;
+    border: 1px solid #0F4C75;
+    padding: 20px;
+}
+
+.MyBox td {
+    border: 1px solid #0F4C75;
+}

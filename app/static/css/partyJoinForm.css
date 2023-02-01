@@ -1,0 +1,49 @@
+.partyJoin {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.partyJoin input{
+    width: 40vw;
+    padding: 16px 0 12px;
+    background: none transparent;
+    line-height: 20px;
+    text-indent: 12px;
+    text-align: center;
+    background-color: white;
+    border: none;
+    font-size: 1em;
+}
+
+.partyJoin select{
+    width: 40vw;
+    padding: 16px 0 12px;
+    background: none transparent;
+    line-height: 20px;
+    font-weight: 700;
+    text-indent: 12px;
+    text-align: center;
+    background-color: white;
+    border: none;
+    font-size: 1em;
+}
+
+.submit{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    background: #0F4C75;
+    color: #1B262C;
+    border: none;
+    border-radius: 10px;
+    border-color: #0F4C75; 
+    font-size: 1.4em;
+    transition: 0.4s ease;
+}
+
+.submit:hover {
+    background-color: #d6d6d6;
+    transition: 0.4s ease;
+}

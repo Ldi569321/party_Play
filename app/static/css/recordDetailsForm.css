@@ -1,0 +1,92 @@
+main {
+    padding: 10px;
+    min-width: 650px;
+    width: 65vw;
+}
+
+.help_content_bx {
+    position: relative;
+    width: 62vw;
+    height: 62vh;
+}
+
+.help_content_bx {
+    position: relative;
+    background-color: white;
+    padding: 20px 40px 0 25px;
+}
+
+.help_content_bx .content_bx_st .tit {
+    display: block;
+    color: #28313d;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.help_content_bx .content_bx_st .sub_copy {
+    margin: 3px 0 40px;
+    color: #777;
+    font-size: 14px;
+}
+
+.help_content_bx .content_bx_st .sub_copy2 {
+    color: #4e545d;
+    font-size: 12px;
+}
+
+.help_tb1_common {
+    margin-top: 10px;
+    border-top: 1px solid #949da9;
+}
+
+.help_tb1_common table {
+    width: 100%;
+    line-height: 1.4;
+}
+
+.help_tb1_common th {
+    color: #28313d;
+    font-weight: 700;
+    font-size: 15px;
+}
+
+.help_tb1_common td {
+    color: #354052;
+    font-size: 14px;
+}
+
+.help_tb1_common td,.help_tb1_common th {
+    border-bottom: 1px solid #ebebeb;
+    vertical-align: middle;
+}
+
+.help_tb1_common .tb1_content_bx {
+    min-height: 100px;
+    padding: 20px 0;
+    line-height: 1.8;
+    word-break: break-all;
+    font-size: 9pt;
+}
+
+.help_tb1_style01 td,.help_tb1_style01 th {
+    padding: 13px 0px 13px 8px;
+    text-align: left;
+    word-break: break-all;
+}
+
+.help_tb1_style03 th {
+    padding: 14px 5px 15px 19px;
+}
+
+.content_bx_st .record {
+    border: 1px solid black;
+    text-decoration-line: none;
+    background-color: #28313d;
+    color: white;
+    flex: 0.3;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    float: right;
+}

@@ -1,0 +1,139 @@
+.cat {
+    display: flex;
+    justify-content: space-around;
+}
+
+.cat input {
+    background-color: transparent;
+    font-size: 1em;
+    min-width: 16.1vw;
+    max-width: 16.1vw;
+    background-color: #3282B8;
+    color: white;
+    border: 1px solid #4e545d;
+    height: 5vh;
+    cursor: pointer;
+}
+
+.partyMain .partyListMain{
+    position:relative;
+}
+
+.partyMain .partyListMain{
+    position: relative;
+    background-color: white;
+    padding: 27px 40px 10px 25px;
+}
+
+.partyMain .partyListMain .partyMainTitle{
+    display: block;
+    color: #28313d;
+    font-weight: 700;
+    font-size: 30px;
+    text-align: center;
+}
+
+.partyMain .partyListMain .sub_copy{
+    margin: 3px 0 40px;
+    color: #777;
+    font-size: 17px;
+    text-align: center;
+}
+
+.partyMain .partyListMain .sub_copy2{
+    color: #4e545d;
+    font-size: 12px;
+    text-align: center;
+}
+
+.partyMain .partyListMain .sub_copy3{
+    color: #4e545d;
+    font-size: 12px;
+}
+
+.party_common{
+    margin-top: 10px;
+    border-top: 1px solid #949da9;
+}
+
+.party_common table{
+    width: 100%;
+    line-height: 1.4;
+}
+
+.party_common th{
+    color: #28313d;
+    font-weight: 700;
+    font-size: 15px;
+}
+
+.party_common td{
+    color: #354052;
+    font-size: 14px;
+}
+
+.party_common th{
+    border-bottom: 1px solid #ebebeb;
+    vertical-align: middle;
+}
+
+.party_common td{
+    border-bottom: 1px solid #ebebeb;
+    vertical-align: middle;
+}
+
+.party_common .t_left{
+    text-align: left;
+}
+
+.party_style th{
+    padding: 14px 5px 15px;
+    text-align: center;
+}
+
+.party_style td{
+    padding: 15px 5px;
+    color: #666;
+    text-align: center;
+    word-break: break-all;
+}
+
+.partyDetails {
+    text-decoration: none; color: black;
+}
+
+.partyDetails:hover{
+    color: #0F4C75;
+}
+
+.partyJoin {
+    text-decoration: none; color: black;
+}
+
+.partyJoin:hover {
+    color: #0F4C75;
+}
+
+.partyMainCreate{
+    text-decoration: none; color: black;
+}
+
+.partyMainCreate:hover {
+    color: #0F4C75;
+}
+
+#checkCat { display: none; }
+#checkCat:checked ~ .menubars { display: block; } 
+.menubars { display: none; }
+
+#checkVideo { display: none; }
+#checkVideo:checked ~ .menubars { display: block; } 
+.menubars { display: none; }
+
+#checkMusic { display: none; }
+#checkMusic:checked ~ .menubars { display: block; } 
+.menubars { display: none; }
+
+#checkEtc { display: none; }
+#checkEtc:checked ~ .menubars { display: block; } 
+.menubars { display: none; }

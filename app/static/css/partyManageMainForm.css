@@ -1,0 +1,115 @@
+main{
+    padding: 20px;
+}
+
+.partyManageMain .partyManageListMain{
+    position:relative
+}
+
+.partyManageMain .partyManageListMain{
+    position: relative;
+    background-color: white;
+    padding: 27px 40px 200px 25px;
+}
+
+.partyManageMain .partyManageListMain .partyManageCheck{
+    display: block;
+    color: #28313d;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.partyManageMain .partyManageListMain .sub_copy{
+    margin: 3px 0 40px;
+    color: #777;
+    font-size: 14px;
+}
+
+.partyManageMain .partyManageListMain .sub_copy2{
+    color: #4e545d;
+    font-size: 12px;
+}
+
+.partyManageMain .partyManageListMain .sub_copy3{
+    color: #4e545d;
+    font-size: 12px;
+}
+
+.partyManageList_common{
+    margin-top: 10px;
+    border-top: 1px solid #949da9;
+}
+
+.partyManageList_common table{
+    width: 100%;
+    line-height: 1.4;
+}
+
+.partyManageList_common th{
+    color: #28313d;
+    font-weight: 700;
+    font-size: 15px;
+}
+
+.partyManageList_common td{
+    color: #354052;
+    font-size: 14px;
+}
+
+.partyManageList_common th{
+    border-bottom: 1px solid #ebebeb;
+    vertical-align: middle;
+}
+
+.partyManageList_common td{
+    border-bottom: 1px solid #ebebeb;
+    vertical-align: middle;
+}
+
+.partyManageList_common .t_left{
+    text-align: left;
+}
+
+.partyManageList_style th{
+    padding: 14px 5px 15px;
+    text-align: center;
+}
+
+.partyManageList_style td{
+    padding: 15px 5px;
+    color: #666;
+    text-align: center;
+    word-break: break-all;
+}
+
+.partyDetails {
+    text-decoration: none; color: black;
+}
+
+.partyDetails:hover{
+    color: #0F4C75;
+}
+
+.partyEdit {
+    text-decoration: none; color: black;
+}
+
+.partyEdit:hover{
+    color: #0F4C75;
+}
+
+.partyManagePartyDrop {
+    text-decoration: none; color: black;
+}
+
+.partyManagePartyDrop:hover {
+    color: #0F4C75;
+}
+
+.partyManageMainCreate{
+    text-decoration: none; color: black;
+}
+
+.partyManageMainCreate:hover {
+    color: #0F4C75;
+}

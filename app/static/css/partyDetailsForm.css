@@ -1,0 +1,68 @@
+main{
+    padding: 20px;
+}
+
+.partyDetailsMain .partyDetailsListMain{
+    position:relative
+}
+
+.partyDetailsMain .partyDetailsListMain{
+    position: relative;
+    background-color: white;
+    padding: 27px 40px 25px;
+}
+
+.partyDetailsMain .partyDetailsListMain .partyDetailsTitle{
+    display: block;
+    color: #28313d;
+    font-weight: 700;
+    font-size: 40px;
+    text-align: center;
+}
+
+.partyDetailsMain .partyDetailsListMain .partyDetailsSub{
+    margin-top: 10px;
+    border-top: 1px solid #949da9;
+    border-bottom: 1px solid #949da9;
+}
+
+.partyDetailsList{
+    margin-top: 10px;
+    border-bottom: 1px solid #949da9;
+}
+
+.partyDetailsExplanation textarea{
+    min-width: 100%;
+    min-height: 10vw;
+    max-width: 100%;
+    max-height: 10vw;
+    margin-top: 20px;
+    text-align: center;
+    resize: none;
+    border: #1B262C;
+    border-radius: 5px;
+    font-size: 1.2vw;
+}
+
+.partyDetailsMember{
+    text-align: center;
+    background-color: #0F4C75;
+    padding-top: 1vw;
+    padding-bottom: 1vw;
+    font-size: 1vw;
+    color: white;
+}
+
+.partyDetailsButton{
+    text-align: center;
+    margin-top: 1vw;
+    font-size: 1vw;
+}
+
+.partyDetailsButton a {
+    background-color: #0F4C75;
+    border-radius: 5px;
+    color: white;
+    padding: 0.2vw;
+    margin: 1vw;
+}

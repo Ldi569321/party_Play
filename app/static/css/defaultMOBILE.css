@@ -1,0 +1,223 @@
+@font-face {
+    font-family: 'MapoPeacefull';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/MapoPeacefullA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* { 
+    font-family: 'MapoPeacefull';
+    overflow: hidden;
+}
+
+body {
+    margin: 0;
+    overflow: hidden;
+}
+
+/* 헤드부분 */
+header {
+    display: flex;
+    justify-content: space-between;
+    margin: 0px 10px 53px 10px;
+    padding-top: 10px;
+    margin-bottom: 20px;
+}
+
+.menubar {
+    flex: 0.3;
+}
+
+.menu {
+    flex-direction: row;
+    position: absolute;
+    width: 30vw;
+    height: 100vh;
+    background-color: #1b262cc2;
+    z-index: 1;
+}
+
+.menu div a{
+    text-decoration-line: none;
+    color: white;
+}
+
+.menuBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+}
+
+.menuBox div {
+    margin: 30px 0px;
+    font-size: 1.5em;
+}
+
+.menubar div {
+    width: 10vw;
+    text-align: center;
+    cursor: pointer;
+}
+
+
+.logo {
+    flex: 0.4;
+    cursor: pointer;
+    margin: 0px 100px;
+    text-align: center;
+}
+
+
+.logo img{
+    width: 25vw;
+    max-width: 310px;
+}
+
+.account {
+    flex: 0.3;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.account div {
+    flex: 0.4;
+    text-align: center;
+    width: 50px;
+    background-color: #1B262C;
+    border-radius: 10px;
+    display: block;
+    margin: 0px;
+}
+
+.account div a {
+    text-decoration-line: none;
+    color: white;
+    display: block;
+    padding: 10px;
+}
+
+
+
+.menuSlideIn{
+    animation: menuSlideIn 0.5s ease-in;
+}
+
+.menuSlideOut{
+    animation: menuSlideOut 0.5s ease-in;
+}
+
+
+@keyframes menuSlideIn {
+    from{
+        left: -50%;
+    }
+    to{
+        left: 0%;
+    }
+}
+
+@keyframes menuSlideOut {
+    from{
+        left: 0%;
+    }
+    to{
+        left: -50%;
+    }
+}
+
+
+
+/* 메인부분 */
+.mainBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 10px 50px 10px;
+    height: 66vh;
+}
+
+.ad1 {
+    min-width: 150px;
+    width: 70vw;
+    height: 10vh;
+    max-height: 135px;
+    min-width: 650px;
+    display: flex;
+}
+
+
+main {
+    border: 1px solid black;
+    min-width: 650px;
+    width: 65vw;
+    height: 55vh;
+    background-color: #BBE1FA;
+}
+
+.ad2 {
+    min-width: 150px;
+    width: 70vw;
+    height: 10vh;
+    max-height: 135px;
+    min-width: 650px;
+    display: flex;
+    margin-left: 10px;
+}
+
+.ad {
+    width: 100%;
+    background-repeat: no-repeat;
+}
+
+
+
+
+/* 정보 부분 */
+footer {
+    border: 1px solid black;
+    height: 8vh;
+    width: 99.8vw;
+    position: absolute;
+    bottom: 0%;
+    margin: 0;
+    text-align: center;
+}
+
+.information {
+    padding: 10px;
+    font-size: 0.8em;
+    color: #30424d;
+}
+
+@media (max-width: 1200px) {
+    footer{ height: 9vh;}
+}
+
+/* 설정 */
+html { font-size: 62.5%; }
+body { font-size: 1em;}
+.menubar div i{font-size: 4em;}
+
+@media (max-width: 300px) {
+    html { font-size: 50%; }
+    .menubar div { font-size: 200%; }
+}
+
+@media (min-width: 500px) {
+    html { font-size: 70%; }
+    .menubar div { font-size: 250%; }
+}
+
+@media (min-width: 700px) {
+    html { font-size: 100%; }
+    .menubar div { font-size: 300%; }
+}
+
+@media (min-width: 1200px) {
+    html { font-size: 120%; }
+    .menubar div { font-size: 350%; }
+}

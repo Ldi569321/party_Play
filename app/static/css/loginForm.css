@@ -1,0 +1,54 @@
+main img {
+    margin-top: 20px;
+    width: 20vw;
+    flex: 0.2;
+}
+
+main {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.loginBox {
+    margin-top: 30px;
+    width: 25vw;
+    text-align: center;
+}
+
+.loginInner {
+    margin-top: 20px;
+    width: 20vw;
+    height: 5vh;
+}
+
+.AChelp {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-top: 20px;
+}
+
+.autologin {
+    font-size: 0.8em;
+    color: #1B262C;
+    display: flex;
+    align-items: center;
+}
+
+.findAccount {
+    text-decoration-line: none;
+    font-size: 0.8em;
+    color: #1B262C;
+}
+
+.findAccount:hover {
+    color: #425a68;
+}
+
+input[type="submit"] {
+    margin-top: 20px;
+    width: 20vw;
+    height: 4vh;
+}

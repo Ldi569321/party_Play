@@ -1,0 +1,44 @@
+.findAccountBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60vw;
+    margin: 0 auto;
+}
+
+.infoInner {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.infoInner input {
+    width: 20vw;
+    height: 3vh;
+    margin: 10px 0px;
+}
+
+input[type="submit"] {
+    background-color: white;
+    color: #1B262C;
+    border-radius: 5px;
+    height: 4vh;
+}
+
+.resultAccount table{
+    width: 40vw;
+    height: 8vh;
+    background-color: #1B262C;
+    color: #1B262C;
+}
+
+.resultAccount table th{
+    background-color: white;
+}
+
+.resultAccount table td{
+    background-color: white;
+}
+
+.resultAccount table td input {
+    border: 0;
+}

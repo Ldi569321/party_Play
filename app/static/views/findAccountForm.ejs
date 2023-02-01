@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" media="all and (min-width:1200px)" href="/css/defaultPC.css">
+    <link rel="stylesheet" media="all and (max-width:1199px)" href="/css/defaultMOBILE.css">
+    <link rel="stylesheet" href="/css/findAccountForm.css">
+    <link rel="stylesheet" href="/css/fontawesome-free-6.2.1-web/css/all.min.css">
+    <script src="/css/fontawesome-free-6.2.1-web/js/all.min.js"></script>
+    <script defer src="/js/app.js"></script>
+    <script defer src="/js/findAC.js"></script>
+    <title>PartyPlay</title>
+</head>
+
+<body>
+    <div class="menu" style="display: none;">
+        <div class="menuBox">
+            <div>
+                <a href="partyManageMain">내파티 관리</a>
+            </div>
+            <div>
+                <a href="support">고객센터</a>
+            </div>
+            <div>
+                <a href="createParty">파티 생성</a>
+            </div>
+        </div>
+    </div>
+
+    <header> <!-- 헤더(로고, 메뉴, 회원정보) -->
+        <div class="menubar">
+            <div><i class="fa-solid fa-bars"></i></div>
+        </div>
+        <div class="logo">
+            <a href="./main">
+                <img src="./img/logo.png" alt="">
+            </a>
+        </div>
+        <div class="account">
+            <div>
+                <a href="login">로그인</a>
+            </div>
+            <div>
+                <a href="register">회원가입</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="mainBox">
+        <aside> <!-- 왼쪽 광고 -->
+            <div class="ad1">
+                <img class="ad" src="">
+            </div>
+        </aside>
+
+        <main> <!-- 메인 화면(카테고리, 파티칸) -->
+            <form action="/findMyAcount" method="post">
+                <div class="findAccountBox">
+                    <h1>아이디/비밀번호 찾기</h1>
+                    <div>
+                        전화번호와 이름을 정확하게 입력하시면 아이디와 비밀번호를 대략적으로 확인할수 있습니다.
+                    </div>
+                    <div class="infoInner">
+                        <label>
+                            이름<br><input type="text" name="findName" id="findName" placeholder="이름을 정확하게 입력해 주세요">
+                        </label>
+                        <br>
+                        <label>
+                            전화번호<br><input type="tel" name="findTel" id="findTel" placeholder="전화번호를 정확하게 입력해 주세요">
+                        </label>
+                        <br>
+                        <input type="submit" value="확인" class="findACSubmit">
+                    </div>
+                    <div class="resultAccount">
+                        <table border="1">
+                            <tr>
+                                <th>이름</th>
+                                <th>전화번호</th>
+                                <th>아이디</th>
+                                <th>비밀번호</th>
+                            </tr>
+                            <tr>
+                                <td><input type="text" id="find" readonly></td>
+                                <td><input type="text" id="find" readonly></td>
+                                <td><input type="text" id="find" readonly></td>
+                                <td><input type="text" id="find" readonly></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </form>
+        </main>
+
+        <aside> <!-- 오른쪽 광고 -->
+            <div class="ad2">
+                <img class="ad" src="">
+            </div>
+    </div>
+    </aside>
+    <footer> <!-- 정보칸 -->
+        <div class="information">
+            <div>PartyPlay는 통신판매중개자이며, 통신판매의 당사자가 아닙니다. 파티정보, 구매에 관한 의무와 책임은 판매자에게 있습니다.</div>
+            <div>PartyPlay는 소비자 보호와 안전거래를 위해 고객센터를 운영하고 있으며, 분쟁이 발생 된 경우 별도의 분쟁처리절차에 의거분쟁해결 및 청약철회 등이 진행 됩니다.</div>
+            <div>조장: 이동인 제작 인원: 3명(김승민, 이동인, 이호재) 상일미디어 고등학교: 서울특별시 강동구 천호대로219길 61</div>
+        </div>
+    </footer>
+</body>
+
+</html>

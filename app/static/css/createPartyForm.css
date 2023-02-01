@@ -1,0 +1,89 @@
+.createParty {
+    display: flex;
+    flex-direction: row;
+}
+
+.createParty label {
+    margin: 7px;
+}
+
+.createPartyL {
+    flex: 0.5;
+    display: flex;
+    flex-direction: column;
+}
+
+.createPartyR {
+    flex: 0.5;
+    display: flex;
+    flex-direction: column;
+}
+
+.createPartyR label {
+    margin: 0px 0px 12px 0px;
+}
+
+.chatUrl {
+    width: 32vw;
+    max-width: 510px;
+}
+
+.chatPass {
+    width: 20vw;
+}
+
+.explanation {
+    height: 5vh;
+    word-break: keep-all;
+}
+
+.submit {
+    background-color: white;
+    border-radius: 5px;
+    width: 30vw;
+}
+
+.createPartyTop {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#payCalculate {
+    font-size: 0.8em;
+    margin-top: 5px;
+    color: rgb(56, 56, 56);
+}
+
+#calculateBtn {
+    margin-left: 10px;
+}
+
+html { font-size: 62.5%; }
+.createParty * { font-size: 1em;}
+
+@media (max-width: 300px) {
+    html { font-size: 50%; }
+}
+
+@media (min-width: 500px) {
+    html { font-size: 70%; }
+}
+
+@media (min-width: 700px) {
+    html { font-size: 100%; }
+}
+
+@media (min-width: 1200px) {
+    html { font-size: 120%; }
+}
+
+@media (min-width:1200px){
+
+    .createPartyL label {
+        margin: 20px 0px;
+    }
+    .createPartyR label {
+        margin: 24px 0px;
+    }
+}

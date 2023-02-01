@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ko" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" media="all and (min-width:1200px)" href="/css/defaultPC.css">
+    <link rel="stylesheet" media="all and (max-width:1199px)" href="/css/defaultMOBILE.css">
+    <link rel="stylesheet" href="/css/registerForm.css">
+    <link rel="stylesheet" href="/css/fontawesome-free-6.2.1-web/css/all.min.css">
+    <script src="/css/fontawesome-free-6.2.1-web/js/all.min.js"></script>
+    <script defer src="/js/app.js"></script>
+    <script defer src="/js/register.js"></script>
+    <title>PartyPlay</title>
+</head>
+
+<body>
+    <div class="menu" style="display: none;">
+        <div class="menuBox">
+            <div>
+                <a href="partyManageMain">내파티 관리</a>
+            </div>
+            <div>
+                <a href="support">고객센터</a>
+            </div>
+            <div>
+                <a href="createParty">파티 생성</a>
+            </div>
+        </div>
+    </div>
+
+    <header> <!-- 헤더(로고, 메뉴, 회원정보) -->
+        <div class="menubar">
+            <div><i class="fa-solid fa-bars"></i></div>
+        </div>
+        <div class="logo">
+            <a href="./main">
+                <img src="./img/logo.png" alt="">
+            </a>
+        </div>
+        <div class="account">
+            <div>
+                <a href="login">로그인</a>
+            </div>
+            <div>
+                <a href="register">회원가입</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="mainBox">
+        <aside> <!-- 왼쪽 광고 -->
+            <div class="ad1">
+                <img class="ad" src="">
+            </div>
+        </aside>
+
+        <main> <!-- 메인 화면(카테고리, 파티칸) -->
+            <form action="/NewRegister" method="post" accept-charset="UTF-8">
+                <div class="regBox">
+                    <div class="regInfo">
+                        <div>
+                            <label>
+                                아이디: <input type="text" oninput="Input(this)" name="userId" id="userId" placeholder="아이디를 입력해주세요" minlength="6" maxlength="15" required>
+                            </label>
+                            <input class="overlapCheck" type="button" id="overlapCheck" value="중복확인">
+                            <div class="additional" id="userid_msg">아이디는 6~15개의 알파벳, 숫자로 구성되야 합니다.</div>
+                        </div>
+                        <br>
+
+                        <label>
+                            비밀번호: <input type="password" oninput="Input(this)" name="password" id="password" placeholder="비밀번호를 입력해주세요" minlength="6" maxlength="15" required> 
+                        </label>
+                        <div class="additional">비밀번호는 6~15개의 알파벳과 숫자로 구성되야 합니다.</div>
+                        <br>
+
+                        <label>
+                            비밀번호 재확인: <input type="password" input="pwInput(this)" name="passwordCheck" id="passwordCheck" placeholder="비밀번호를 다시입력해주세요" minlength="6" maxlength="15" required>
+                        </label>
+                        <div class="additional">비밀 번호를 다시 입력해 주십시오.</div>
+                        <br>
+
+                        <label>
+                            이름: <input type="text" name="userName" id="userName" placeholder="이름을 입력해 주세요" required>
+                        </label>
+                        <div class="additional">실제 이름을 입력하여 주세요.</div>
+                        <br>
+
+                        <label>
+                            전화번호: <input type="tel" name="tel" id="tel" placeholder="전화번호를 입력해주세요" required>
+                        </label>
+                        <div class="additional"></div>
+                        <br>
+                    </div>
+                    <div class="regHardInfo">
+                        <div class="provision">회원가입을 완료하면 회원님의 정보가 3년간 (주)파티플레이에 저장되며 회원 탈퇴시 1년후 회원님의 정보가 삭제됩니다.</div>
+                        <label> 위 사항에 동의 하십니까?
+                            <label> 네
+                                <input type="radio" name="individualInfo" value="1" required>
+                            </label>
+                            <label> 아니요
+                                <input type="radio" name="individualInfo" id="noEssential" value="0">
+                            </label>
+                        </label>
+                        <div class="provision">전화번호로 파티플레이의 파티 알림, 이벤트 알림에 동의 하십니까?</div>
+                        <label> 위 사항에 동의 하십니까?
+                            <label> 네
+                                <input type="radio" name="notification" value="1" required>
+                            </label>
+                            <label> 아니요
+                                <input type="radio" name="notification" value="0" required>
+                            </label>
+                            <input type="submit" class="regSubmit" name="" id="" value="가입">
+                    </div>
+            </form>
+    </div>
+    </main>
+
+    <aside> <!-- 오른쪽 광고 -->
+        <div class="ad2">
+            <img class="ad" src="">
+        </div>
+    </aside>
+    </div>
+    <footer> <!-- 정보칸 -->
+        <div class="information">
+            <div>PartyPlay는 통신판매중개자이며, 통신판매의 당사자가 아닙니다. 파티정보, 구매에 관한 의무와 책임은 판매자에게 있습니다.</div>
+            <div>PartyPlay는 소비자 보호와 안전거래를 위해 고객센터를 운영하고 있으며, 분쟁이 발생 된 경우 별도의 분쟁처리절차에 의거분쟁해결 및 청약철회 등이 진행 됩니다.</div>
+            <div>조장: 이동인 제작 인원: 3명(김승민, 이동인, 이호재) 상일미디어 고등학교: 서울특별시 강동구 천호대로219길 61</div>
+        </div>
+    </footer>
+</body>
+</html>
