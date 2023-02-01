@@ -22,7 +22,7 @@
 .partyMain .partyListMain{
     position: relative;
     background-color: white;
-    padding: 27px 40px 10px 25px;
+    padding: 1.3vw 40px 0.3vw 25px;
 }
 
 .partyMain .partyListMain .partyMainTitle{
@@ -34,7 +34,7 @@
 }
 
 .partyMain .partyListMain .sub_copy{
-    margin: 3px 0 40px;
+    margin: 0vw 0 0.3vw;
     color: #777;
     font-size: 17px;
     text-align: center;
@@ -52,7 +52,7 @@
 }
 
 .party_common{
-    margin-top: 10px;
+    margin-top: 1px;
     border-top: 1px solid #949da9;
 }
 
@@ -64,7 +64,7 @@
 .party_common th{
     color: #28313d;
     font-weight: 700;
-    font-size: 15px;
+    font-size: 0.6vw;
 }
 
 .party_common td{
@@ -87,12 +87,12 @@
 }
 
 .party_style th{
-    padding: 14px 5px 15px;
+    padding: 0.3vw 5px 0.3vw;
     text-align: center;
 }
 
 .party_style td{
-    padding: 15px 5px;
+    padding: 0.3vw 5px;
     color: #666;
     text-align: center;
     word-break: break-all;

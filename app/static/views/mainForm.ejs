@@ -56,100 +56,94 @@
         </aside>
 
         <main>
-            <form action="">
-                <div class="cat"> <!-- 메인 화면(카테고리) -->
-                    <input type="checkbox" id="checkCat">
-                    <label for="checkCat"><input type="button" value="전체"></label>
+            <form action="" method="post">
+            <div class="cat"> <!-- 메인 화면(카테고리) -->
+                <input type="checkbox" id="checkCat">
+                <label for="checkCat"><input type="button" value="전체"></label>
+                
+                <input type="checkbox" id="checkVideo">
+                <label for="checkVideo"><input type="button" value="영상"></label>
 
-                    <input type="checkbox" id="checkVideo">
-                    <label for="checkVideo"><input type="button" value="영상"></label>
+                <input type="checkbox" id="checkMusic">
+                <label for="checkMusic"><input type="button" value="음악"></label>
 
-                    <input type="checkbox" id="checkMusic">
-                    <label for="checkMusic"><input type="button" value="음악"></label>
-
-                    <input type="checkbox" id="checkEtc">
-                    <label for="checkEtc"><input type="button" value="기타"></label>
+                <input type="checkbox" id="checkEtc">
+                <label for="checkEtc"><input type="button" value="기타"></label>
+            </div>
+            <div class="partyMain" id="partyMain">
+                <div class="partyListMain">
+                    <strong class="partyMainTitle">PartyPlay</strong>
+                    <p class="sub_copy">파티를 가입/생성 하여 헤택을 즐겨보세요!</p>
+            <div class="party_common party_style">
+                <table>
+                    <colgroup>
+                        <col style="width: 10%;">
+                        <col style="width: 10%;">
+                        <col style="width: 10%;">
+                        <col style="width: 10%;">
+                        <col style="width: 10%;">
+                        <col style="width: 10%;">
+                        <col style="width: 10%;">
+                        <col style="width: 10%;">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th scope="col">파티 번호</th>
+                            <th scope="col">제목</th>
+                            <th scope="col">카테고리</th>
+                            <th scope="col">총금액(일금액)</th>
+                            <th scope="col">모집 인원(총 인원)</th>
+                            <th scope="col">파티 생성일</th>
+                            <th scope="col">종료일(남은 기간)</th>
+                            <th scope="col">파티 상태</th>
+                            <th scope="col">정보/가입</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%for(let i=0; i < count; i++) {%>
+                        <tr id="partyList" class="hide">
+                            <td id="partyNumber"><%=party[0].party_num%></td>
+                            <td id="partyTitle" class="t_left" id="partyTitle">
+                                <a href="./partyDetails" class="partyDetails"><%=title%></a> <!-- Java Script -->                                        
+                            </td>
+                            <td id="partyCategory"><%=party[0].category_menu%></td>
+                            <td id="partyPay"><%=party[0].result_price%><!-- Java Script, 계산기 --></td>
+                            <td id="partyMember"><%=party[0].party_per%><!-- Java Script, 계산기 --></td>
+                            <td id="partyBirth"><%=party[0].stert_date%></td>
+                            <td id="partyDate"><%=party[0].end_date%><!-- java Script, 계산기 --></td>
+                            <td id="partyState"><%if(party[0].state==1){%><div>참가 가능</div><%}else{%><div>참가 불가능</div><%}%><!-- Java Script --></td>
+                            <td scope="col" class="right">
+                                <a href="./partyDetails" class="partyDetails" style="text-overflow: ellipsis;"><%=answer%></a>
+                                <a href="./partyJoin" class="partyJoin" id="">즉시 가입</a><!-- java Script, 경고문 출력, db삭제 -->
+                            </td>
+                        </tr>
+                        <%}%>
+                        </tbody>
+                        <tr name="partylist_no" class="">
+                            <td colspan="9">
+                                <h1><strong>Party Play</strong></h1>
+                                <p class="sub_copy3" id="partylastList">목록은 여기까지 입니다.</p>
+                                <a href="createParty" class="partyMainCreate" id="partyMainCreate">파티 생성하기</a><br><br>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
-                <div class="partyMain" id="partyMain">
-                    <div class="partyListMain">
-                        <strong class="partyMainTitle">PartyPlay</strong>
-                        <p class="sub_copy">파티를 가입/생성 하여 헤택을 즐겨보세요!</p>
-                        <p class="sub_copy2">※ 개인정보 유출에 주의하세요! </p>
-                        <div class="party_common party_style">
-                            <table>
-                                <colgroup>
-                                    <col style="width: 10%;">
-                                    <col style="width: 10%;">
-                                    <col style="width: 10%;">
-                                    <col style="width: 10%;">
-                                    <col style="width: 10%;">
-                                    <col style="width: 10%;">
-                                    <col style="width: 10%;">
-                                    <col style="width: 10%;">
-                                </colgroup>
-                                <thead>
-                                    <tr>
-                                        <th scope="col">파티 번호</th>
-                                        <th scope="col">제목</th>
-                                        <th scope="col">카테고리</th>
-                                        <th scope="col">총금액(일금액)</th>
-                                        <th scope="col">모집 인원(총 인원)</th>
-                                        <th scope="col">종료일(남은 기간)</th>
-                                        <th scope="col">파티 생성일</th>
-                                        <th scope="col">파티 상태</th>
-                                        <th scope="col">정보/가입</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr name="partyList" class="hide">
-                                        <td name="partyNumber">00001</td>
-                                        <td name="partyTitle" class="t_left" id="partyTitle">
-                                            <a href="./partyDetailsForm.html" class="partyDetails">
-                                                도제프로젝트test도제프로젝트test도제프로젝트test도제프로젝트
-                                            </a> <!-- Java Script -->
-                                        </td>
-                                        <td name="partyCategory">categoryDefault</td><!-- Java Script -->
-                                        <td name="partyPay">nn원(dd원)<!-- Java Script, 계산기 --></td>
-                                        <td name="partyMember">hire member(all)<!-- Java Script, 계산기 --></td>
-                                        <td name="partyDate">2023.01.31(left date)<!-- java Script, 계산기 --></td>
-                                        <td name="partyBirth">2023.01.10</td>
-                                        <td name="partyState">
-                                            모집중 <!-- Java Script -->
-                                        </td>
-                                        <td scope="col" class="right">
-                                            <a href="./partyDetailsForm.html" class="partyDetails" id="">파티 정보</a>
-                                            <a href="./partyJoinForm.html" class="partyJoin" id="">즉시
-                                                가입</a><!-- java Script, 경고문 출력, db삭제 -->
-                                        </td>
-                                    </tr>
-                                    <tr name="partylist_no" class="">
-                                        <td colspan="9">
-                                            <h1><strong>Party Play</strong></h1>
-                                            <p class="sub_copy3" id="partylastList">목록은 여기까지 입니다.</p>
-                                            <a href="createPartyForm.html" class="partyMainCreate"
-                                                id="partyMainCreate">파티
-                                                생성하기</a><br><br>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="paging_wrap">
-                            <ul id="partyPaging" class="pagingUl" style="display: none;">
-                                <li><a class="" name="0.1" order="1" href="">1</a></li><!-- Java Script-->
-                                <li><a class="" name="0.2" order="2" href="">2</a></li><!-- Java Script-->
-                                <li><a class="" name="0.2" order="3" href="">3</a></li><!-- Java Script-->
-                                <li><a class="" name="0.2" order="4" href="">4</a></li><!-- Java Script-->
-                                <li><a class="" name="0.2" order="5" href="">5</a></li><!-- Java Script-->
-                                <li><a class="" name="0.2" order="6" href="">6</a></li><!-- Java Script-->
-                                <li><a class="" name="0.2" order="7" href="">7</a></li><!-- Java Script-->
-                                <li><a class="" name="0.2" order="8" href="">8</a></li><!-- Java Script-->
-                                <li><a class="" name="0.2" order="9" href="">9</a></li><!-- Java Script-->
-                            </ul>
-                        </div>
+                    <div class="paging_wrap">
+                        <ul id="partyPaging" class="pagingUl" style="display: none;">
+                            <li><a class="" name="0.1" order="1" href="">1</a></li><!-- Java Script-->
+                            <li><a class="" name="0.2" order="2" href="">2</a></li><!-- Java Script-->
+                            <li><a class="" name="0.2" order="3" href="">3</a></li><!-- Java Script-->
+                            <li><a class="" name="0.2" order="4" href="">4</a></li><!-- Java Script-->
+                            <li><a class="" name="0.2" order="5" href="">5</a></li><!-- Java Script-->
+                            <li><a class="" name="0.2" order="6" href="">6</a></li><!-- Java Script-->
+                            <li><a class="" name="0.2" order="7" href="">7</a></li><!-- Java Script-->
+                            <li><a class="" name="0.2" order="8" href="">8</a></li><!-- Java Script-->
+                            <li><a class="" name="0.2" order="9" href="">9</a></li><!-- Java Script-->
+                        </ul>
                     </div>
                 </div>
-            </form>
+            </div>
+        </form>
         </main>
 
         <aside> <!-- 오른쪽 광고 -->

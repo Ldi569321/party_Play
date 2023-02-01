@@ -1,8 +1,14 @@
+
+.MyBox {
+    margin-top: 30px;
+    min-width: 600px;
+}
+
 .MyMain .MyUserMain{
     background-color: white;
     margin: 10px;
-    padding: 10px;
-    height: 61vh;
+    padding: 30px;
+    height: 57vh;
 }
 
 .MyMain .MyUserMain .MyMainTitle{
@@ -13,7 +19,6 @@
 }
 
 .MyMain .MyUserMain .sub_copy{
-    margin: 0vw 0 0.3vw;
     color: #777;
     font-size: 13px;
 }
@@ -36,14 +41,15 @@
 
 .MyBox tr{
     padding-bottom: 1vw;
+    border: 1px solid #0F4C75;
 }
 
 .MyBox th{
-    border-right: solid 5px white;
     border: 1px solid #0F4C75;
     padding: 20px;
 }
 
 .MyBox td {
+    border: 1px solid #0F4C75;
     border: 1px solid #0F4C75;
 }

@@ -57,11 +57,11 @@
             <div class="createPartyTop">
             <h1>파티 생성</h1>
         </div>
-            <form action="">
+            <form action="cretePartySys" method="post">
                 <div class="createParty">
                     <div class="createPartyL">
                     <label for="">
-                        카테고리 <select name="" id="" required>
+                        카테고리 <select name="category" id="category" required>
                             <option value="" selected>카테고리를 선택해 주세요</option>
                             <option value="video">영상</option>
                             <option value="music">음악</option>
@@ -69,29 +69,30 @@
                         </select>
                     </label>
                     <label for="">
-                        파티이름 <input type="text" name="" id="" required>
+                        파티이름 <input type="text" name="title" id="" maxlength="20" required>
                     </label>
                     <label for="">
-                        모집인원 <input type="number" name="" id="" min="1" max="20" required>
+                        모집인원 <input type="number" name="party_per" id="" min="1" max="10" required>
                     </label>
                     <label for="">
-                        진행 기간 <input type="date" id="createDate" readonly>~<input type="date" name="" id="maxDate"
+                        진행 기간 <input type="date" id="createDate" name="start_Date" readonly>~<input type="date" name="end_Date" id="maxDate"
                             required>
                     </label>
                     <label for="" style="display: inline;">
-                        1일당 금액 <input type="number" name="" id="dayPay" required><button type="button" id="calculateBtn">계산</button>
+                        1일당 금액 <input type="number" name="dayPrice" id="dayPay" required><button type="button" id="calculateBtn">계산</button>
                         <div id="payCalculate">n일 × n원 = n원</div>
+                        <input type="text" name="resultPrice" id="result_price" style="display: none;" value="">
                     </label>
                 </div>
                 <div class="createPartyR">
                     <label for="">
-                    카카오톡 오픈채팅방 <br><input type="url" class="chatUrl" name="" id="" placeholder="파티를 만들기전 오픈채팅방을 만드세요" required>
+                    카카오톡 오픈채팅방 <br><input type="url" class="chatUrl" name="kakaoChat" id="" placeholder="파티를 만들기전 오픈채팅방을 만드세요" required>
                 </label>
                 <label for="">
-                    오픈채팅방 비밀번호 <br><input type="text" class="chatPass" name="" id="" required>
+                    오픈채팅방 비밀번호 <br><input type="text" class="chatPass" name="kakaoChat_pass" id="" required>
                 </label>
                 <label for="">
-                    부가 설명 <br><textarea style="resize: none;" name="" id="" cols="50" rows="5"></textarea>
+                    부가 설명 <br><textarea style="resize: none;" name="answer" id="" cols="50" rows="5"></textarea>
                 </label>
                     <input type="submit" class="submit" value="생성하기">
                 </div>
@@ -147,8 +148,9 @@
         } else {
             let dayPay = document.getElementById("dayPay").value;
             let dayCount = getDateDiff(document.getElementById("createDate").value, document.getElementById("maxDate").value);
-            let result = dayCount * dayPay;
-            payCal.innerText = `${dayCount}일 × ${dayPay}원 = ${result}원`
+            let result = (dayCount+1) * dayPay;
+            payCal.innerText = `${dayCount+1}일 × ${dayPay}원 = ${result}원`
+            document.querySelector("#result_price").value = result;
         }
     })
 </script>

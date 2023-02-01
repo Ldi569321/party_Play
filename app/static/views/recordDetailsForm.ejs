@@ -55,72 +55,77 @@
             </div>
         </aside>
         <main> <!-- 메인 화면(카테고리, 파티칸) -->
-            <div class="help_content_bx">
-                <div class="content_bx_st">
-                    <strong class="tit">내 문의내역</strong>
-                    <p class="sub_copy">최근 접수하신 문의내역 및 답변 내용을 확인하실 수 있습니다.</p>
-                    <a class="record" href="record">목록보기</a>
-                    <p class="sub_copy2">※ 문의 내용 중 개인정보가 포함되었거나 중복된 문의인 경우 삭제될 수 있습니다.</p>
-                    <div class="help_tb1_common help_tb1_style01 help_tb1_style03">
+            <div class="partyDetailsMain" id="partyDetailsMain">
+                <div class="partyDetailsListMain">
+                    <strong class="partyDetailsTitle" id="">파티 제목</strong>
+                    <div class="partyDetailsCategory" id="">파티 카테고리</div>
+                    <div class="partyDetailsSub">
                         <table>
-                           <colgroup>
-                                <col style="width: 20%;">
-                                <col style="width: 30%;">
-                                <col style="width: 20%;">
-                                <col style="width: 30%;">
+                            <colgroup>
+                                <col style="width: 10%;">
+                                <col style="width: 10%;">
+                                <col style="width: 40%;">
+                                <col style="width: 10%;">
+                                <col style="width: 10%;">
                             </colgroup>
-                            <tbody>
+                            <thead>
                                 <tr>
-                                    <th scope="row">등록일</th>
-
-                                    <td><span id="firstdate">2022-01-01</span></td>
-
-                                    <th scope="row">처리상태</th>
-                                    <td id="state">접수</td>
+                                    <th scope="col"><div class="partyDetailsPartyCaptain" id="partyCaptain">파티장 : </div></th>
+                                    <th scope="col">리동긴<!-- Java Script, 파티장 이름 가져오기 --></th>
+                                    <th scope="col"> </th>
+                                    <th scope="col"><div class="partyDetailsPartyNum" id="partyNum">파티 번호 : </div></th>
+                                    <th scope="col">000001<!-- Java Script, 파티 번호 가져오기 --></th>
                                 </tr>
-                                <tr>
-                                    <th scope="row">제목</th>
-
-                                    <td colspan="3"><span id="title">결제분쟁</span></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">내용</th>
-                                    <td colspan="3" id="record">
-                                        <div class="tb1_content_bx">
-
-                                            <span id="content">[기재사항]<br>1. 아이디명: MANAGER<br>2. 내용: 도제프로젝트TEST도제프로젝트TEST도제프로젝트TEST</span>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                            </tbody>
+                            </thead>
                         </table>
                     </div>
-                </div>
-                <div class="tb1_content_bx" id="recontent">
 
-                    <div class="help_tb1_common help_tb1_style01"> <table>
-                        <colgroup>
-                            <col style="width: 20%;">
-                            <col style="width: 30%;">
-                            <col style="width: 20%;">
-                            <col style="width: 30%;">
-                        </colgroup>
-                        <tbody>
-                            <tr id="recontent">
-                                <th scope="row">답변</th>
-                                <td colspan="3">
-                                    <div class="tb1_content_bx">
-                                        문의 내용을 정확하게 확인한 후 <br>빠른 시일 내에 답변 드리겠습니다.<br> 
-                                        <br>문의량이 증가하거나 확인절차가 길어지는 경우에는 <br> 답변이 지연될 수 있으니 양해 부탁드립니다.</div>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table></div>
+                    <div class="partyDetailsList">
+                        <table>
+                            <colgroup>
+                                <col style="width: 10%;">
+                                <col style="width: 10%;">
+                                <col style="width: 30%;">
+                                <col style="width: 10%;">
+                                <col style="width: 10%;">
+                                <col style="width: 20%;">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th scope="col">종료일: </th>
+                                    <th scope="col" id="">2023/12/31</th>
+                                    <th scope="col"> </th>
+                                    <th scope="col">비용:</th>
+                                    <th scope="col" id="">15000$</th>
+                                    <th scope="col" id="">(1일당 금액 n)</th>
+                                </tr>    
+                            </thead>
+                        </table>
+                    </div>
+                    
+                    <div class="partyDetailsExplanation" id="">
+                        <textarea name="" id="" cols="30" rows="10" readonly>돈을 바쳐라.</textarea>
+                    </div>
+
+                    <div class="partyDetailsMember" id="">
+                        <ol>
+                            <li id=""></li>
+                            <li id=""></li>
+                            <li id=""></li>
+                            <li id=""></li>
+                            <div class="partyDetailsMemberRec" id="">n명 모집중</div>
+                        </ol>
+                    </div>
+
+                    <div class="partyDetailsButton">
+                        <a href="./mainForm.html" class="goBack" id="">목록</a>
+                        <a href="./partyJoinForm.html" class="partyJoin" id="">참가</a>
+                    </div>
+
                 </div>
             </div>
         </main>
+        
         <aside> <!-- 오른쪽 광고 -->
             <div class="ad2">
                 <img class="ad" src="">

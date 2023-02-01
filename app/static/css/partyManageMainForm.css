@@ -9,7 +9,7 @@ main{
 .partyManageMain .partyManageListMain{
     position: relative;
     background-color: white;
-    padding: 27px 40px 200px 25px;
+    padding: 1.3vw 40px 0.3vw 25px;
 }
 
 .partyManageMain .partyManageListMain .partyManageCheck{
@@ -20,7 +20,7 @@ main{
 }
 
 .partyManageMain .partyManageListMain .sub_copy{
-    margin: 3px 0 40px;
+    margin: 0vw 0 0.3vw;
     color: #777;
     font-size: 14px;
 }
@@ -71,12 +71,12 @@ main{
 }
 
 .partyManageList_style th{
-    padding: 14px 5px 15px;
+    padding: 0.3vw 5px 0.3vw;
     text-align: center;
 }
 
 .partyManageList_style td{
-    padding: 15px 5px;
+    padding: 0.3vw 5px;
     color: #666;
     text-align: center;
     word-break: break-all;
@@ -106,10 +106,10 @@ main{
     color: #0F4C75;
 }
 
-.partyManageMainCreate{
+.partyCreate{
     text-decoration: none; color: black;
 }
 
-.partyManageMainCreate:hover {
+.partyCreate:hover {
     color: #0F4C75;
 }

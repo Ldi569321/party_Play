@@ -30,6 +30,7 @@ app.engine('html', require('ejs').renderFile);
 
 const maxAge = 1000 * 60 * 5;
 
+//세션
 app.use(session({
   secret: "asdfasffdas",
   resave: false,
@@ -42,13 +43,30 @@ app.use(session({
 app.get('/main', (req, res) => {
   console.log(req.session.uid);
   console.log(req.session.isLogined);
-  if (req.session.uid != null || req.session.isLogined == true) {
-    res.render('mainFormLogined');
-  } else {
-    req.session.uid = null;
-    req.session.isLogined = false;
-    res.render('mainForm');
-  }
+  const mainSQL = `SELECT party_num, title, category_menu, result_price, party_per, end_date, start_date, state, answer FROM party ORDER BY party_num DESC`;
+  conn.query(mainSQL, (err, row) => {
+    console.log(row)
+    if (req.session.uid != null || req.session.isLogined == true) {
+      res.render('mainFormLogined', {
+        party: row
+      });
+    } else {
+      req.session.uid = null;
+      req.session.isLogined = false;
+      res.render('mainForm', {
+        party_num: row[0].party_num,
+        title: row[0].title,
+        category: row[0].party_menu,
+        result_price: row[0].result_price,
+        party_person: row[0].party_per,
+        end_date: row[0].end_date,
+        start_date: row[0].start_date,
+        state: row[0].state,
+        answer: row[0].answer,
+        count: row.length
+      });
+    }
+  });
 });
 
 //로그인
@@ -162,7 +180,7 @@ app.get('/account', (req, res) => {
         id: result[0].id,
         datetime: result[0].datetime,
         Notification: Notificate
-    });
+      });
     })
   } else {
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
@@ -171,7 +189,6 @@ app.get('/account', (req, res) => {
     </script>`);
   }
 });
-
 
 //파티관리
 app.get('/partyManageMain', (req, res) => {
@@ -209,6 +226,19 @@ app.get('/createParty', (req, res) => {
     </script>`);
   }
 });
+
+//파티생성 쿼리
+app.post('/cretePartySys', (req, res) => {
+  console.log(req.body);
+  const cretePartySQL = `INSERT INTO party (title, party_per, start_Date, end_Date, day_price, result_price, kakaoChat, kakaoChat_pass, answer, category_menu, party_leader)
+                                      values ('${req.body.title}', '${req.body.party_per}', '${req.body.start_Date}', 
+                                      '${req.body.end_Date}', '${req.body.dayPrice}', '${req.body.resultPrice}', 
+                                      '${req.body.kakaoChat}', '${req.body.kakaoChat_pass}', '${req.body.answer}', '${req.body.category}', '${req.session.uid}');`;
+  conn.query(cretePartySQL, (err, row) => {
+    if (err) throw err;
+    res.sendFile(__dirname + '/static/views/mainForm');
+  })
+})
 
 //정산
 app.get('/calculate', (req, res) => {

@@ -9,7 +9,7 @@ main{
 .partyDetailsMain .partyDetailsListMain{
     position: relative;
     background-color: white;
-    padding: 27px 40px 25px;
+    padding: 1vw 40px 1vw;
 }
 
 .partyDetailsMain .partyDetailsListMain .partyDetailsTitle{
@@ -31,11 +31,15 @@ main{
     border-bottom: 1px solid #949da9;
 }
 
+.partyDetailsExplanation {
+    text-align: center;
+}
+
 .partyDetailsExplanation textarea{
-    min-width: 100%;
-    min-height: 10vw;
+    min-width: 90%;
+    min-height: 7vw;
     max-width: 100%;
-    max-height: 10vw;
+    max-height: 6vw;
     margin-top: 20px;
     text-align: center;
     resize: none;
@@ -47,8 +51,8 @@ main{
 .partyDetailsMember{
     text-align: center;
     background-color: #0F4C75;
-    padding-top: 1vw;
-    padding-bottom: 1vw;
+    padding-top: 0.4vw;
+    padding-bottom: 0.4vw;
     font-size: 1vw;
     color: white;
 }

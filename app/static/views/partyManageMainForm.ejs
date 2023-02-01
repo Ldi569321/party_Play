@@ -72,11 +72,13 @@
                                 <col style="width: 10%;">
                                 <col style="width: 10%;">
                                 <col style="width: 10%;">
+                                <col style="width: 10%;">
                             </colgroup>
                             <thead>
                                 <tr>
                                     <th scope="col">파티 번호</th>
                                     <th scope="col">제목</th>
+                                    <th scope="col">카테고리</th>
                                     <th scope="col">총금액(일금액)</th>
                                     <th scope="col">모집 인원(총 인원)</th>
                                     <th scope="col">종료일(남은 기간)</th>
@@ -86,18 +88,19 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr name="partyList" class="hide">
-                                    <td name="partyNumber">00001</td>
-                                    <td name="partyTitle" class="t_left" id="partyTitle">
+                                <tr id="partyList" class="hide">
+                                    <td id="partyNumber">00001</td>
+                                    <td id="partyTitle" class="t_left" id="partyTitle">
                                         <a href="./partyDetails" class="partyDetails">
                                             도제프로젝트test도제프로젝트test도제프로젝트test도제프로젝트
                                         </a> <!-- Java Script -->                                        
                                     </td>
-                                    <td name="partyPay">nn원(dd원)<!-- Java Script, 계산기 --></td>
-                                    <td name="partyMember">hire member(all)<!-- Java Script, 계산기 --></td>
-                                    <td name="partyDate">2023.01.31(left date)<!-- java Script, 계산기 --></td>
-                                    <td name="partyBirth">2023.01.10</td>
-                                    <td name="partyState">
+                                    <td id="partyCategory">categoryDefault</td><!-- Java Script -->
+                                    <td id="partyPay">nn원(dd원)<!-- Java Script, 계산기 --></td>
+                                    <td id="partyMember">hire member(all)<!-- Java Script, 계산기 --></td>
+                                    <td id="partyDate">2023.01.31(left date)<!-- java Script, 계산기 --></td>
+                                    <td id="partyBirth">2023.01.10</td>
+                                    <td id="partyState">
                                         모집중  <!-- Java Script -->
                                     </td>
                                     <td scope="col">
@@ -105,11 +108,11 @@
                                         <a href="" class="partyManagePartyDrop" id="partyManagePartyDrop">삭제</a><!-- java Script, 경고문 출력, db삭제 -->
                                     </td>
                                 </tr>
-                                <tr name="partylist_no" class="">
-                                    <td colspan="8">
+                                <tr id="partylist_no" class="">
+                                    <td colspan="9">
                                         <h1><strong>Party Play</strong></h1>
                                         <p class="sub_copy3" id="partylastList">목록은 여기까지 입니다.</p>
-                                        <a href="createParty" class="partyManageMainCreate" id="partyManageMainCreate">파티 생성하기</a><br><br>
+                                        <a href="createParty" class="partyCreate" id="partyCreate">파티 생성하기</a><br><br>
                                     </td>
                                 </tr>
                             </tbody>

@@ -4,7 +4,16 @@
     font-weight: normal;
     font-style: normal;
 }
+a:visited { text-decoration: none; }
+a:hover { text-decoration: none; }
+a:focus { text-decoration: none; }
+a:hover, a:active { text-decoration: none; }
 
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
 * { 
     font-family: 'MapoPeacefull';
     overflow: hidden;

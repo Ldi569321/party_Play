@@ -9,6 +9,13 @@ a:visited { text-decoration: none; }
 a:hover { text-decoration: none; }
 a:focus { text-decoration: none; }
 a:hover, a:active { text-decoration: none; }
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 * { 
     font-family: 'MapoPeacefull';
     overflow: hidden;
@@ -177,8 +184,10 @@ header {
 main {
     border: 1px solid black;
     min-width: 650px;
+    max-height: 60vh;
     width: 65vw;
     background-color: #BBE1FA;
+
 }
 
 .ad2 {
