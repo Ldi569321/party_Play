@@ -57,24 +57,25 @@
 
         <main>
             <div class="partyJoinTitle"><strong id="">파티 가입</strong></div>
-            <form action="./partyInForm.html" class="" id="">
+            <form action="./partyIn" method="post" class="" id="">
                 <div class="partyJoinInput" id="">
-                    <input type="text" class="ConveyId" id="" placeholder="전달할 아이디" required>
+                    <input type="text" class="ConveyId" id="send_id" name="send_id" placeholder="전달할 아이디" required>
                     <br>
 
-                    <select class="payment" name="payment" id="" required>
+                    <select class="payment" name="send_pay" id="send_pay" required>
                         <option value="" selected>결제 수단 선택</option>
-                        <option value="신용카드 또는 체크카드 결제">신용카드 또는 체크카드 결제</option>
-                        <option value="PAYCO">PAYCO</option>
-                        <option value="계좌 연결">계좌 연결</option>
+                        <option value="card">신용카드 또는 체크카드 결제</option>
+                        <option value="payco">PAYCO</option>
+                        <option value="account">계좌 연결</option>
                     </select>
                     <br>
 
-                    <input type="email" class="contactEmail" id="" placeholder="연락할 이메일" required>
+                    <input type="email" class="contactEmail" id="send_email" name="send_email" placeholder="연락할 이메일" required>
                     <br>
                 </div>
 
-                <input type="submit" class="submit" id="" value="파티 가입 메시지 제출">
+                <input type="submit" class="submit" id="" value="파티 가입">
+                <input type="text" id="party_num" name="party_num" value="<%=party_num%>" style="display: none;">
             </form>
         </main>
 

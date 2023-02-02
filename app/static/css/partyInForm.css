@@ -1,0 +1,76 @@
+main{
+    padding: 20px;
+}
+
+.partyDetailsMain .partyDetailsListMain{
+    position:relative
+}
+
+.partyDetailsMain .partyDetailsListMain{
+    position: relative;
+    background-color: white;
+    padding: 1vw 40px 1vw;
+}
+
+.partyDetailsMain .partyDetailsListMain .partyDetailsTitle{
+    display: block;
+    color: #28313d;
+    font-weight: 700;
+    font-size: 40px;
+    text-align: center;
+}
+
+.partyDetailsMain .partyDetailsListMain .partyDetailsCategory{
+    text-align: center;
+    font-size: 1.2vw;
+}
+
+.partyDetailsMain .partyDetailsListMain .partyDetailsSub{
+    margin-top: 10px;
+    border-top: 1px solid #949da9;
+    border-bottom: 1px solid #949da9;
+}
+
+.partyDetailsList{
+    margin-top: 10px;
+    border-bottom: 1px solid #949da9;
+}
+
+.partyDetailsExplanation{
+    text-align: center;
+}
+
+.partyDetailsExplanation textarea{
+    min-width: 100%;
+    min-height: 7vw;
+    max-width: 100%;
+    max-height: 6vw;
+    margin-top: 0.5vw;
+    text-align: center;
+    resize: none;
+    border: #1B262C;
+    border-radius: 5px;
+    font-size: 1.2vw;
+}
+
+.partyDetailsExplanation .chatDetails{
+    color: white;
+    background-color: #2a638a   ;
+    border-radius: 3px;
+    padding: 0.1vw;
+    text-decoration: none;
+}
+
+.partyDetailsButton{
+    text-align: center;
+    margin-top: 1vw;
+    font-size: 1vw;
+}
+
+.partyDetailsButton a {
+    background-color: #0F4C75;
+    border-radius: 5px;
+    color: white;
+    padding: 0.2vw;
+    margin: 1vw;
+}

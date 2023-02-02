@@ -1,17 +1,19 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" media="all and (min-width:1200px)" href="/css/defaultPC.css">
     <link rel="stylesheet" media="all and (max-width:1199px)" href="/css/defaultMOBILE.css">
-    <link rel="stylesheet" href="/css/partyDetailsForm.css">
+    <link rel="stylesheet" href="/css/partyInForm.css">
     <link rel="stylesheet" href="/css/fontawesome-free-6.2.1-web/css/all.min.css">
     <script src="/css/fontawesome-free-6.2.1-web/js/all.min.js"></script>
     <script defer src="/js/app.js"></script>
     <title>PartyPlay</title>
 </head>
+
 <body>
     <div class="menu" style="display: none;">
         <div class="menuBox">
@@ -33,18 +35,10 @@
         </div>
         <div class="logo">
             <a href="./main">
-                <img src="/img/logo.png" alt="">
+                <img src="./img/logo.png" alt="">
             </a>
         </div>
         <div class="account">
-            <%if(session_uid == null){%>
-                <div>
-                    <a class="login" href="login">로그인</a>
-                </div>
-                <div>
-                    <a class="register" href="register">회원가입</a>
-                </div>
-                <%}else {%>
             <div>
                 <a class="myAccount" href="account">내정보</a>
             </div>
@@ -52,7 +46,6 @@
                 <a class="logOut" href="logOut ">로그아웃</a>
             </div>
         </div>
-        <%} %>
     </header>
 
     <div class="mainBox">
@@ -65,7 +58,8 @@
         <main>
             <div class="partyDetailsMain" id="partyDetailsMain">
                 <div class="partyDetailsListMain">
-                    <strong class="partyDetailsTitle"><%=title%></strong>
+                    <strong class="partyDetailsTitle" id=""><%=title%></strong>
+                    <div class="partyDetailsCategory" id=""><%=category%></div>
                     <div class="partyDetailsSub">
                         <table>
                             <colgroup>
@@ -78,7 +72,7 @@
                             <thead>
                                 <tr>
                                     <th scope="col"><div class="partyDetailsPartyCaptain" id="partyCaptain">파티장 : </div></th>
-                                    <th scope="col"><%=leader%><!-- Java Script, 파티장 이름 가져오기 --></th>
+                                    <th scope="col"><%=party_leader%><!-- Java Script, 파티장 이름 가져오기 --></th>
                                     <th scope="col"> </th>
                                     <th scope="col"><div class="partyDetailsPartyNum" id="partyNum">파티 번호 : </div></th>
                                     <th scope="col"><%=party_num%><!-- Java Script, 파티 번호 가져오기 --></th>
@@ -92,17 +86,25 @@
                             <colgroup>
                                 <col style="width: 10%;">
                                 <col style="width: 10%;">
-                                <col style="width: 40%;">
                                 <col style="width: 10%;">
                                 <col style="width: 10%;">
+                                <col style="width: 10%;">
+                                <col style="width: 10%;">
+                                <col style="width: 10%;">
+                                <col style="width: 10%;">
+                                <col style="width: 15%;">
                             </colgroup>
                             <thead>
                                 <tr>
-                                    <th scope="col">종료일:</th>
+                                    <th scope="col">종료일: </th>
                                     <th scope="col" id=""><%=end_date%></th>
-                                    <th scope="col"> </th>
+                                    <th scope="col" class="theadBlank"> </th>
+                                    <th scope="col">남은 모집 인원: </th>
+                                    <th scope="col" id=""><%=party_per%></th>
+                                    <th scope="col" class="theadBlank"> </th>
                                     <th scope="col">비용:</th>
                                     <th scope="col" id=""><%=result_price%></th>
+                                    <th scope="col" id="">(1일당 금액 <%=day_price%>)</th>
                                 </tr>    
                             </thead>
                         </table>
@@ -110,13 +112,25 @@
                     
                     <div class="partyDetailsExplanation" id="">
                         <textarea name="" id="" cols="30" rows="10" readonly><%=answer%></textarea>
+                        <div class="chatDetails" id="">
+                            <table>
+                                    카카오톡 오픈채팅방 정보
+                                <tr>
+                                    <td>오픈채팅방 이름: </td>
+                                    <td><div class="" id=""><%=kakaoChat%></div></td>
+                                </tr>
+                                <tr>
+                                    <td>오픈채팅방 비밀번호: </td>
+                                    <td><div class="" id=""><%=kakaoChat_pass%></div></td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
+
                     <div class="partyDetailsButton">
-                        <a href="main" class="goBack" id="">목록</a>
-                        <%if(party_leader != session_uid && party_per != 0){%>
-                        <a href="partyJoin?party_num=<%=party_num%>" class="partyJoin" id="">참가</a>
-                        <%}%>
+                        <a href="./main" class="goBack" id="">목록으로</a>
                     </div>
+
                 </div>
             </div>
         </main>
@@ -134,6 +148,6 @@
             <div>조장: 이동인 제작 인원: 3명(김승민, 이동인, 이호재) 상일미디어 고등학교: 서울특별시 강동구 천호대로219길 61</div>
         </div>
     </footer>
-    
 </body>
+
 </html>

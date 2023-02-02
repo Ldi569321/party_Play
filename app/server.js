@@ -28,9 +28,9 @@ app.set('view engine', 'ejs');
 app.set('views', __dirname + '/static/views');
 app.engine('html', require('ejs').renderFile);
 
-const maxAge = 1000 * 60 * 5;
+const maxAge = 1000 * 60 * 30;
 
-//세션
+//세션     ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 app.use(session({
   secret: "asdfasffdas",
   resave: false,
@@ -42,81 +42,87 @@ app.use(session({
 //메인화면
 app.get('/main', (req, res) => {
   //카테고리가 있을때
-  if(req.query.cat != null) {
+  if (req.query.cat != null) {
     console.log(req.query.cat);
     let categorySQL;
-    if(req.query.cat == 'all' ){
-      categorySQL = `SELECT party_num, title, category_menu, result_price, party_per, end_date, start_date, state, answer FROM party ORDER BY party_num DESC`;
-    }else{
-      categorySQL = `SELECT party_num, title, category_menu, result_price, party_per, end_date, start_date, state, answer FROM party WHERE category_menu = '${req.query.cat}' ORDER BY party_num DESC`;
+    if (req.query.cat == 'all') {
+      categorySQL = `SELECT party_num, title, category, result_price, party_per, end_date, start_date, state, answer, IF(member like '%${req.session.uid}%', '1', '0') as mem FROM party ORDER BY party_num DESC`;
+    } else {
+      categorySQL = `SELECT party_num, title, category, result_price, party_per, end_date, start_date, state, answer, IF(member like '%${req.session.uid}%', '1', '0') as mem FROM party WHERE category = '${req.query.cat}' ORDER BY party_num DESC`;
     }
-    
+
     conn.query(categorySQL, (err, row) => {
-  
+      if (err) throw err;
       const row_len = Object.keys(row).length;
-  
       let result = [];
-      row.forEach( row => {
+      row.forEach(row => {
         let info = {}
         info.party_num = row.party_num;
         info.title = row.title;
-        info.category = row.category_menu;
+        info.category = row.category;
         info.result_price = row.result_price;
         info.party_per = row.party_per;
         info.end_date = row.end_date;
         info.start_date = row.start_date;
         info.state = row.state;
         info.answer = row.answer;
+        info.mem = row.mem;
         result.push(info);
-      });
-      console.log(result);
+      })
       if (req.session.uid != null || req.session.isLogined == true) {
-        res.render('mainFormLogined', {result: result, total: row_len});
+        res.render('mainFormLogined', { result: result, total: row_len });
+
       } else {
         req.session.uid = null;
         req.session.isLogined = false;
-        res.render('mainForm', {result: result, total: row_len});
+        res.render('mainForm', { result: result, total: row_len });
       }
     });
-  } 
+  }
   //카테고리가 없을때
   else {
-    const mainSQL = `SELECT party_num, title, category_menu, result_price, party_per, end_date, start_date, state, answer FROM party ORDER BY party_num DESC`;
+    const mainSQL = `SELECT party_num, title, category, result_price, party_per, end_date, start_date, state, answer, IF(member like '%${req.session.uid}%', '1', '0') as mem FROM party ORDER BY party_num DESC`;
     conn.query(mainSQL, (err, row) => {
-  
+      if (err) throw err;
       const row_len = Object.keys(row).length;
-  
+
       let result = [];
-      row.forEach( row => {
+
+      row.forEach(row => {
         let info = {}
         info.party_num = row.party_num;
         info.title = row.title;
-        info.category = row.category_menu;
+        info.category = row.category;
         info.result_price = row.result_price;
         info.party_per = row.party_per;
         info.end_date = row.end_date;
         info.start_date = row.start_date;
         info.state = row.state;
         info.answer = row.answer;
+        info.mem = row.mem;
         result.push(info);
-      });
+      })
       console.log(result);
       if (req.session.uid != null || req.session.isLogined == true) {
-        res.render('mainFormLogined', {result: result, total: row_len});
+        res.render('mainFormLogined', { result: result, total: row_len });
+
       } else {
         req.session.uid = null;
         req.session.isLogined = false;
-        res.render('mainForm', {result: result, total: row_len});
+        res.render('mainForm', { result: result, total: row_len });
       }
     });
   }
 });
+
+//계정 섹션 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 //로그인
 app.get('/login', (req, res) => {
   res.render('loginForm');
 });
 
+//로그인 쿼리
 app.post('/signIn', (req, res) => {
   console.log(req.body);
   const signInSQL = `SELECT count(*) as r, id, password, name FROM account WHERE id='${req.body.id}' AND password='${req.body.password}'`;
@@ -148,48 +154,15 @@ app.get('/logOut', (req, res) => {
   if (req.session.uid != null || req.session.isLogined == true) {
     req.session.uid = null;
     req.session.isLogined = false;
-    
-    const mainSQL = `SELECT party_num, title, category_menu, result_price, party_per, end_date, start_date, state, answer FROM party ORDER BY party_num DESC`;
-    conn.query(mainSQL, (err, row) => {
-      const row_len = Object.keys(row).length;
-  
-      let result = [];
-      row.forEach( row => {
-        let info = {}
-        info.party_num = row.party_num;
-        info.title = row.title;
-        info.category = row.category_menu;
-        info.result_price = row.result_price;
-        info.party_per = row.party_per;
-        info.end_date = row.end_date;
-        info.start_date = row.start_date;
-        info.state = row.state;
-        info.answer = row.answer;
-        result.push(info);
-    })
-    res.render('mainForm', {result: result, total: row_len});
-  })
+    req.session.destroy(function () {
+      req.session;
+      res.write(`<script>location.href="/main";</script>`);
+    });
   } else {
-    const mainSQL = `SELECT party_num, title, category_menu, result_price, party_per, end_date, start_date, state, answer FROM party ORDER BY party_num DESC`;
-    conn.query(mainSQL, (err, row) => {
-      const row_len = Object.keys(row).length;
-  
-      let result = [];
-      row.forEach( row => {
-        let info = {}
-        info.party_num = row.party_num;
-        info.title = row.title;
-        info.category = row.category_menu;
-        info.result_price = row.result_price;
-        info.party_per = row.party_per;
-        info.end_date = row.end_date;
-        info.start_date = row.start_date;
-        info.state = row.state;
-        info.answer = row.answer;
-        result.push(info);
-    })
-    res.render('mainForm', {result: result, total: row_len});
-  })
+    req.session.destroy(function () {
+      req.session;
+      res.write(`<script>location.href="/main";</script>`);
+    });
   }
 });
 
@@ -246,6 +219,7 @@ app.get('/account', (req, res) => {
     const id = req.session.uid;
     const accountSQL = `SELECT name, tel, id, datetime, Notification FROM account WHERE id = '${id}';`
     conn.query(accountSQL, (err, result) => {
+      if (err) throw err;
       console.log(result[0]);
       let Notificate = result[0].Notification;
       if (Notificate == 1) {
@@ -270,97 +244,10 @@ app.get('/account', (req, res) => {
   }
 });
 
-//파티관리
-app.get('/partyManageMain', (req, res) => {
-const mainSQL = `SELECT party_num, title, category_menu, result_price, party_per, end_date, start_date, state, answer FROM party WHERE party_leader='${req.session.uid}' ORDER BY party_num DESC`;
-conn.query(mainSQL, (err, row) => {
-  if (req.session.uid != null || req.session.isLogined == true) {
-  const row_len = Object.keys(row).length;
-  let Myresult = [];
-  row.forEach( row => {
-    let info = {}
-    info.party_num = row.party_num;
-    info.title = row.title;
-    info.category = row.category_menu;
-    info.result_price = row.result_price;
-    info.party_per = row.party_per;
-    info.end_date = row.end_date;
-    info.start_date = row.start_date;
-    info.state = row.state;
-    info.answer = row.answer;
-    Myresult.push(info);
-  });
-  console.log(Myresult);
-    res.render('partyManageMainForm', {Myresult: Myresult, total: row_len});
-  } else {
-    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-    res.write(`<script>alert('로그인후 이용 가능합니다.');
-    history.back();
-    </script>`);
-  }
-});
-
-});
-
-//고객센터
-app.get('/support', (req, res) => {
-  console.log(req.session);
-  if (req.session.uid != null || req.session.isLogined == true) {
-    
-    res.render('supportForm');
-  } else {
-    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-    res.write(`<script>alert('로그인후 이용 가능합니다.');
-    history.back();
-    </script>`);
-  }
-});
-
-//파티생성
-app.get('/createParty', (req, res) => {
-  if (req.session.uid != null || req.session.isLogined == true) {
-    res.render('createPartyForm');
-  } else {
-    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-    res.write(`<script>alert('로그인후 이용 가능합니다.');
-    history.back();
-    </script>`);
-  }
-});
-
-//파티생성 쿼리
-app.post('/cretePartySys', (req, res) => {
-  console.log(req.body);
-  const cretePartySQL = `INSERT INTO party (title, party_per, start_Date, end_Date, day_price, result_price, kakaoChat, kakaoChat_pass, answer, category_menu, party_leader)
-                                      values ('${req.body.title}', '${req.body.party_per}', '${req.body.start_Date}', 
-                                      '${req.body.end_Date}', '${req.body.dayPrice}', '${req.body.resultPrice}', 
-                                      '${req.body.kakaoChat}', '${req.body.kakaoChat_pass}', '${req.body.answer}', '${req.body.category}', '${req.session.uid}');`;
-  conn.query(cretePartySQL, (err, row) => {
-    if (err) throw err;
-    res.sendFile(__dirname + '/static/views/mainForm');
-  })
-})
-
-//정산
-app.get('/calculate', (req, res) => {
-  if (req.session.uid != null || req.session.isLogined == true) {
-    res.render('calculateForm');
-  } else {
-    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-    res.write(`<script>alert('로그인후 이용 가능합니다.');
-    history.back();
-    </script>`);
-  }
-});
 
 //계정찾기
 app.get('/findAccount', (req, res) => {
   res.render('findAccountForm');
-});
-
-//계정출력
-app.get('/foundAccount', (req, res) => {
-  res.render('foundAccountForm');
 });
 
 //계정찾기 기능
@@ -384,41 +271,19 @@ app.post('/findMyAcount', (req, res) => {
   })
 });
 
-//파티 정보
-app.get('/partyDetails', (req, res) => {
-  console.log(req.params.party_num);
-  const partyDetailSQL = `SELECT title, party_leader, party_num, category_menu, end_date, start_date, result_price, answer, member FROM party WHERE party_num='${req.query.party_num}' ORDER BY party_num DESC`;
-  conn.query(partyDetailSQL, (err, row) => {
-    res.render('partyDetailsForm', {
-      title: row[0].title,
-      leader: row[0].party_leader,
-      party_num: row[0].party_num,
-      end_date: row[0].end_date,
-      result_price: row[0].result_price,
-      answer: row[0].answer
-    })
-
-  })
+//계정출력
+app.get('/foundAccount', (req, res) => {
+  res.render('foundAccountForm');
 });
 
-//파티수정
-app.get('/partyEdit', (req, res) => {
-  console.log(req.query.party_num);
+//정산
+app.get('/calculate', (req, res) => {
+  console.log(req.query.party_num)
   if (req.session.uid != null || req.session.isLogined == true) {
-    const partyEditlSQL = `SELECT party_num, title, category_menu, result_price, party_per, start_date, day_price, end_date, state, kakaoChat, kakaoChat_pass, answer FROM party WHERE party_num='${req.query.party_num}' ORDER BY party_num DESC`;
-    conn.query(partyEditlSQL, (err, row) => {
-      res.render('partyEditForm', {
-        category: row[0].category_menu,
-        title: row[0].title,
-        party_per: row[0].party_per,
-        start_date: row[0].start_date,
-        day_price: row[0].day_price,
-        result_price: row[0].result_price,
-        end_date: row[0].end_date,
-        state: row[0].state,
-        kakaoChat: row[0].kakaoChat,
-        kakaoChat_pass: row[0].kakaoChat_pass,
-        answer: row[0].answer
+    const calculateSQL = `select LENGTH(member) - LENGTH(REPLACE(member, ',', '')) as person, result_price from party where party_num='${req.query.party_num}';`
+    conn.query(calculateSQL, (err, row) => {
+      res.render('calculateForm', {
+        max_price: row[0].person * row[0].result_price
       });
     })
   } else {
@@ -429,16 +294,278 @@ app.get('/partyEdit', (req, res) => {
   }
 });
 
+
+//파티 섹션 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+//파티생성
+app.get('/createParty', (req, res) => {
+  if (req.session.uid != null || req.session.isLogined == true) {
+    res.render('createPartyForm');
+  } else {
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    res.write(`<script>alert('로그인후 이용 가능합니다.');
+    history.back();
+    </script>`);
+  }
+});
+
+//파티생성 쿼리
+app.post('/createPartySys', (req, res) => {
+  console.log(req.body);
+  const cretePartySQL = `INSERT INTO party (title, party_per, start_Date, end_Date, day_price, result_price, kakaoChat, kakaoChat_pass, answer, category, party_leader)
+                                      values ('${req.body.title}', '${req.body.party_per}', '${req.body.start_Date}', 
+                                      '${req.body.end_Date}', '${req.body.dayPrice}', '${req.body.resultPrice}', 
+                                      '${req.body.kakaoChat}', '${req.body.kakaoChat_pass}', '${req.body.answer}', '${req.body.category}', '${req.session.uid}');`;
+  conn.query(cretePartySQL, (err, row) => {
+    if (err) throw err;
+    res.write('<script>location.href="/main"</script>')
+  })
+})
+
+//파티 정보
+app.get('/partyDetails', (req, res) => {
+  console.log(req.params.party_num);
+  const partyDetailSQL = `SELECT title, party_leader, party_num, category, end_date, start_date, result_price, answer, member, state, party_per FROM party WHERE party_num='${req.query.party_num}' ORDER BY party_num DESC`;
+  conn.query(partyDetailSQL, (err, row) => {
+    res.render('partyDetailsForm', {
+      title: row[0].title,
+      leader: row[0].party_leader,
+      party_num: row[0].party_num,
+      end_date: row[0].end_date,
+      result_price: row[0].result_price,
+      answer: row[0].answer,
+      party_leader: row[0].party_leader,
+      session_uid: req.session.uid,
+      state: row[0].state,
+      party_per: row[0].party_per
+    })
+
+  })
+});
+
+//파티수정
+app.get('/partyEdit', (req, res) => {
+  if (req.session.uid != null || req.session.isLogined == true) {
+    const partyEditlSQL = `SELECT party_num, title, category, result_price, party_per, start_date, day_price, end_date, state, kakaoChat, kakaoChat_pass, answer FROM party WHERE party_num='${req.query.party_num}' ORDER BY party_num DESC`;
+    conn.query(partyEditlSQL, (err, row) => {
+      res.render('partyEditForm', {
+        category: row[0].category,
+        title: row[0].title,
+        party_per: row[0].party_per,
+        start_date: row[0].start_date,
+        day_price: row[0].day_price,
+        result_price: row[0].result_price,
+        end_date: row[0].end_date,
+        state: row[0].state,
+        kakaoChat: row[0].kakaoChat,
+        kakaoChat_pass: row[0].kakaoChat_pass,
+        answer: row[0].answer,
+        party_num: req.query.party_num
+      });
+    })
+  } else {
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    res.write(`<script>alert('로그인후 이용 가능합니다.');
+    history.back();
+    </script>`);
+  }
+});
+
+//파티 수정 쿼리
+app.post('/reviseparty', (req, res) => {
+  console.log(req.body);
+  const revisepartySQL = `UPDATE party SET category = '${req.body.category}', title = '${req.body.title}',
+  party_per = '${req.body.party_per}', start_date = '${req.body.start_date}', end_date = '${req.body.end_date}', 
+  day_price = '${req.body.day_price}', result_price = '${req.body.result_price}', state = '${req.body.state}',
+  kakaoChat = '${req.body.kakaoChat}', kakaoChat_pass = '${req.body.kakaoChat_pass}', answer = '${req.body.answer}' WHERE party_num = '${req.body.party_num}';`
+  conn.query(revisepartySQL, (err, row) => {
+    if (err) throw err;
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    res.write(`<script>alert("파티 수정이 완료 되었습니다.");
+    location.href="/partyManageMain"</script>`);
+  })
+})
+
 //파티참가
 app.get('/partyJoin', (req, res) => {
   if (req.session.uid != null || req.session.isLogined == true) {
-    const partyJoinSQL = `SELECT title, party_leader, party_num, category_menu, end_date, start_date, result_price, answer, member FROM party WHERE party_num='${req.query.party_num}' ORDER BY party_num DESC`;
+    const partyJoinSQL = `SELECT title, party_leader, party_num, category, end_date, start_date, result_price, answer, member FROM party WHERE party_num='${req.query.party_num}' ORDER BY party_num DESC`;
     conn.query(partyJoinSQL, (err, row) => {
-      res.render('partyJoinForm');
+      if (err) throw err;
+      res.render('partyJoinForm', {
+        party_num: req.query.party_num
+      });
     })
-    
+
   } else {
     res.writeHead(200, { 'Content-Type': '``text/html; charset=utf-8' });
+    res.write(`<script>alert('로그인후 이용 가능합니다.');
+    history.back();
+    </script>`);
+  }
+});
+
+//파티참가 쿼리
+app.post('/partyJoin', (req, res) => {
+  
+})
+
+//파티관리
+app.get('/partyManageMain', (req, res) => {
+  const mainSQL = `SELECT party_num, title, category, result_price, party_per, end_date, start_date, state, answer FROM party WHERE party_leader='${req.session.uid}' ORDER BY party_num DESC`;
+  conn.query(mainSQL, (err, row) => {
+    if (err) throw err;
+    if (req.session.uid != null || req.session.isLogined == true) {
+      const row_len = Object.keys(row).length;
+      let Myresult = [];
+      row.forEach(row => {
+        let info = {}
+        info.party_num = row.party_num;
+        info.title = row.title;
+        info.category = row.category;
+        info.result_price = row.result_price;
+        info.party_per = row.party_per;
+        info.end_date = row.end_date;
+        info.start_date = row.start_date;
+        info.state = row.state;
+        info.answer = row.answer;
+        Myresult.push(info);
+      });
+      console.log(Myresult);
+      res.render('partyManageMainForm', { Myresult: Myresult, total: row_len });
+    } else {
+      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+      res.write(`<script>alert('로그인후 이용 가능합니다.');
+    history.back();
+    </script>`);
+    }
+  });
+
+});
+
+//파티 삭제
+app.get('/delete', (req, res) => {
+  console.log(req.query.party_num, req.query.title);
+  //제목일치확인
+  const titleSQL = `SELECT *, COUNT(*) r FROM party WHERE title = '${req.query.title}' AND party_num = '${req.query.party_num}';`;
+  conn.query(titleSQL, (err, row) => {
+    if (err) throw err;
+    //파티 삭제
+    if (row[0].r == 1) {
+      const deleteSQL = `DELETE FROM party WHERE title = '${req.query.title}' AND party_num = '${req.query.party_num}';`;
+      conn.query(deleteSQL, (err, row) => {
+        if (err) throw err;
+        res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+        res.write(`<script>alert('파티가 삭제되었습니다.');
+                 location.href='main';
+                 </script>`);
+      })
+    } else {
+      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+      res.write(`<script>alert('제목이 일치하지 않습니다.');
+                 history.back();
+                 </script>`);
+    }
+  })
+})
+
+//파티 가입완료폼
+app.get('/partyIn', (req, res) => {
+  let party_member = null;
+  if (req.session.uid != null || req.session.isLogined == true) {
+    const findPersonSQL = `select member from party where party_num = '${req.query.party_num}'`;
+    conn.query(findPersonSQL, (err, row) => {
+      if (err) throw err;
+      party_member = row[0].member;
+      if (err) throw err;
+      const partyEditlSQL = `SELECT party_num, title, category, result_price, party_per, start_date, day_price, end_date, state, kakaoChat, kakaoChat_pass, answer, party_leader FROM party WHERE party_num='${req.query.party_num}' ORDER BY party_num DESC`;
+      conn.query(partyEditlSQL, (err, row) => {
+        res.render('partyInForm', {
+          category: row[0].category,
+          title: row[0].title,
+          party_per: row[0].party_per,
+          start_date: row[0].start_date,
+          day_price: row[0].day_price,
+          result_price: row[0].result_price,
+          end_date: row[0].end_date,
+          state: row[0].state,
+          kakaoChat: row[0].kakaoChat,
+          kakaoChat_pass: row[0].kakaoChat_pass,
+          answer: row[0].answer,
+          party_num: req.query.party_num,
+          party_leader: row[0].party_leader
+        });
+      })
+    })
+  } else {
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    res.write(`<script>alert('로그인후 이용 가능합니다.');
+    history.back();
+    </script>`);
+  }
+})
+
+//파티 가입완료 쿼리
+app.post('/partyIn', (req, res) => {
+  const partyJoinSQL = `INSERT INTO sendInfo ('${req.body.party_num}', '${req.session.uid}', '${req.body.send_id}', '${send_pay}', '${send_email}')`;
+  conn.query(partyJoinSQL, (err, row) => {
+    if (err) throw err;
+    res.render('partyJoinForm', {
+      party_num: req.query.party_num
+    });
+  })
+  let party_member = null;
+  if (req.session.uid != null || req.session.isLogined == true) {
+    const findPersonSQL = `select member from party where party_num = '${req.body.party_num}'`;
+    conn.query(findPersonSQL, (err, row) => {
+      if (err) throw err;
+      party_member = row[0].member;
+      if (party_member == null) {
+        party_member = '';
+      }
+      console.log()
+      const partyInSQL = `UPDATE party SET member='${req.session.uid}, ${party_member}', party_per= party_per-1 where party_num = '${req.body.party_num}'`
+      conn.query(partyInSQL, (err, row) => {
+        if (err) throw err;
+        const partyEditlSQL = `SELECT party_num, title, category, result_price, party_per, start_date, day_price, end_date, state, kakaoChat, kakaoChat_pass, answer, party_leader FROM party WHERE party_num='${req.body.party_num}' ORDER BY party_num DESC`;
+        conn.query(partyEditlSQL, (err, row) => {
+          res.render('partyInForm', {
+            category: row[0].category,
+            title: row[0].title,
+            party_per: row[0].party_per,
+            start_date: row[0].start_date,
+            day_price: row[0].day_price,
+            result_price: row[0].result_price,
+            end_date: row[0].end_date,
+            state: row[0].state,
+            kakaoChat: row[0].kakaoChat,
+            kakaoChat_pass: row[0].kakaoChat_pass,
+            answer: row[0].answer,
+            party_num: req.query.party_num,
+            party_leader: row[0].party_leader
+          });
+        })
+      })
+    })
+  } else {
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    res.write(`<script>alert('로그인후 이용 가능합니다.');
+    history.back();
+    </script>`);
+  }
+})
+
+
+//고객센터 섹션 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+//고객센터
+app.get('/support', (req, res) => {
+  console.log(req.session);
+  if (req.session.uid != null || req.session.isLogined == true) {
+
+    res.render('supportForm');
+  } else {
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
     res.write(`<script>alert('로그인후 이용 가능합니다.');
     history.back();
     </script>`);

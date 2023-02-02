@@ -59,11 +59,11 @@
             <div class="partyEditTop">
                 <h1>파티 수정</h1>
             </div>
-            <form>
+            <form action="reviseparty" method="post">
                 <div class="partyEdit">
                     <div class="partyEditL">
                     <label for="">
-                        카테고리 <select name="" id="" required>
+                        카테고리 <select name="category" id="" required>
                             <option value="">카테고리를 선택해 주세요<!-- Java Script, 파티의 원래 카테고리 받아오기 --></option>
                             <option value="video" <%if(category == 'video'){%>selected<%}%>>영상</option>
                             <option value="music" <%if(category == 'music'){%>selected<%}%>>음악</option>
@@ -71,38 +71,41 @@
                         </select>
                     </label>
                     <label for="">
-                        파티이름 <input type="text" name="" id="" value="<%=title%>" required><!-- Java Script, 파티의 원래 제목 받아오기 -->
+                        파티이름 <input type="text" name="title" id="" value="<%=title%>" required><!-- Java Script, 파티의 원래 제목 받아오기 -->
                     </label>
                     <label for="">
-                        모집인원 <input type="number" name="" id="" value="<%=party_per%>" min="1" max="10" required><!-- Java Script, 파티의 원래 모집인원 받아오기 -->
+                        모집인원 <input type="number" name="party_per" id="" value="<%=party_per%>" min="1" max="10" required><!-- Java Script, 파티의 원래 모집인원 받아오기 -->
                     </label>
                     <label for="">
-                        진행 기간 <input type="date" id="EditDate" value="<%=start_date%>" readonly>~<input type="date" name="" id="maxDate" value="<%=end_date%>"
+                        진행 기간 <input type="date" id="createDate" name="start_date" value="<%=start_date%>" readonly>~<input type="date" name="end_date" id="maxDate" value="<%=end_date%>"
                             required><!-- Java Script, 파티의 원래 진행 기간 받아오기 -->
                     </label>
                     <label for="" style="display: inline;">
-                        1일당 금액 <input type="number" name="" value="<%=day_price%>" id="dayPay" required><button type="button" id="calculateBtn">계산</button>
+                        1일당 금액 <input type="number" name="day_price" value="<%=day_price%>" id="dayPay" required><button type="button" id="calculateBtn">계산</button>
                         <div id="payCalculate">n일 × n원 = n원</div><!-- Java Script, 파티의 원래 일일당 금액 받아오기 -->
-                        <input type="text" name="" value="<%=result_price%>" style="display: none;">
+                        <input type="text" name="result_price" id="result_price" value="<%=result_price%>" style="display: none;">
+                        <input type="text" name="party_num" id="party_num" value="<%=party_num%>" style="display: none;">
                     </label>
                     <label for="">
-                        파티상태<select name="" id="">
-                            <option value="1" <%if(state == '1'){%>selected<%}%>>예</option>
-                            <option value="0" <%if(state == '0'){%>selected<%}%>>아니요</option>
+                        파티상태 <select name="state" id="">
+                            <option value="1" <%if(state == '1'){%>selected<%}%>>활성화</option>
+                            <option value="0" <%if(state == '0'){%>selected<%}%>>비활성화</option>
                         </select>
                     </label>
                 </div>
                     <div class="partyEditR">
                         <label for="">
-                        카카오톡 오픈채팅방 <br><input type="url" class="chatUrl" name="" id="" value="<%=kakaoChat%>" placeholder="파티를 만들기전 오픈채팅방을 만드세요" required>
+                        카카오톡 오픈채팅방 <br><input type="url" class="chatUrl" name="kakaoChat" id="" value="<%=kakaoChat%>" placeholder="파티를 만들기전 오픈채팅방을 만드세요" required>
                     </label><!-- Java Script, 파티의 원래 오픈채팅방 받아오기 -->
                     <label for="">
-                        오픈채팅방 비밀번호 <br><input type="text" class="chatPass" name="" id="" value="<%=kakaoChat_pass%>" required>
+                        오픈채팅방 비밀번호 <br><input type="text" class="chatPass" name="kakaoChat_pass" id="" value="<%=kakaoChat_pass%>" required>
                     </label><!-- Java Script, 파티의 원래 오픈채팅방 비밀번호 받아오기 -->
                     <label for="">
-                        부가 설명 <br><textarea style="resize: none;" name="" id="" cols="50" value="<%=answer%>" rows="5"></textarea>
+                        부가 설명 <br><textarea style="resize: none;" name="answer" id="" cols="50" rows="5"><%=answer%></textarea>
                     </label><!-- Java Script, 파티의 원래 카테고리 받아오기 -->
                         <input type="submit" class="submit" value="수정하기">
+                        <a href="/calculate?party_num=<%=party_num%>" class="calculate">정산관리</a>
+                        <input onclick="deleteProm()" class="delete" id="" value="삭제하기">
                     </div>
                 </div>
             </form>
@@ -161,5 +164,9 @@
             document.querySelector("#result_price").value = result;
         }
     })
+    function deleteProm() {
+        const InnerTitle = prompt('제목을 정확하게 입력하시면 파티가 삭제 됩니다.');
+        location.href=`/delete?party_num=<%=party_num%>&title=${InnerTitle}`;
+    }
 </script>
 </html>

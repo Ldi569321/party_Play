@@ -55,35 +55,29 @@
             </div>
         </aside>
 
-
-
-
         <main>
             <div class="service">
-                <form action="#">
+                <form action="main">
                     <h1>정산관리</h1><br><br>
                     <h3>지급계좌설정</h3>
                     <div class="calculate">
                         <select id="card" required>
                             <option value="" selected>지급계좌설정</option>
-                            <option value="KB국민">KB국민</option>
-                            <option value="NH농협">NH농협</option>
-                            <option value="케이뱅크">케이뱅크</option>
+                            <option value="NH">농협</option>
+                            <option value="SH">신한</option>
+                            <option value="WR">우리</option>
                         </select>
                     </div>
                     <br>
-                    <h3>지급가능금액</h3>
+                    <h3>출금 가능 금액(최대 <%=max_price%>원)</h3>
                     <div class="calculate2">
-                        <input type="number" min="0" max="1000000">
+                        <input type="number" value="" max="<%=max_price%>">
                     </div>
 
-                    <input type="submit" class="submit" value="지급하기">
+                    <input type="submit" class="submit" value="출금하기">
                 </form>
             </div>
         </main>
-
-
-
 
         <aside> <!-- 오른쪽 광고 -->
             <div class="ad2">

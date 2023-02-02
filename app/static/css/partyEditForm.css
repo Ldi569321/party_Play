@@ -41,6 +41,12 @@
     background-color: white;
     border-radius: 5px;
     width: 30vw;
+    cursor: pointer;
+}
+
+.submit:hover {
+    background-color: rgb(167, 167, 167);
+    color: rgb(49, 49, 49);
 }
 
 .partyEditTop {
@@ -57,6 +63,41 @@
 
 #calculateBtn {
     margin-left: 10px;
+}
+
+.calculate {
+    width: 200px;
+    margin-top: 40px;
+    border-radius: 5px;
+    background-color: #3282B8;
+    color: white;
+    cursor: pointer;
+    border: 1px solid black;
+    text-align: center;
+    padding: 2px;
+}
+
+.calculate:hover {
+    background-color: #266188(161, 0, 0);
+    color: rgb(160, 160, 160);
+}
+
+.delete {
+    width: 200px;
+    margin-top: -30px;
+    margin-left: 420px;
+    border-radius: 5px;
+    background-color: red;
+    color: white;
+    cursor: pointer;
+    border: 1px solid black;
+    text-align: center;
+    padding: 2px;
+}
+
+.delete:hover {
+    background-color: rgb(161, 0, 0);
+    color: rgb(160, 160, 160);
 }
 
 html { font-size: 62.5%; }

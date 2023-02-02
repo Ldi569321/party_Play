@@ -59,16 +59,20 @@
             <form action="">
                 <div class="cat"> <!-- 메인 화면(카테고리) -->
                     <input type="checkbox" id="checkCat">
-                    <label for="checkCat"><input type="button" value="전체" onclick="location.href='main?cat=all'"></label>
-                
+                    <label for="checkCat"><input type="button" value="전체"
+                            onclick="location.href='main?cat=all'"></label>
+
                     <input type="checkbox" id="checkVideo">
-                    <label for="checkVideo"><input type="button" value="영상" onclick="location.href='main?cat=video'"></label>
-    
+                    <label for="checkVideo"><input type="button" value="영상"
+                            onclick="location.href='main?cat=video'"></label>
+
                     <input type="checkbox" id="checkMusic">
-                    <label for="checkMusic"><input type="button" value="음악" onclick="location.href='main?cat=music'"></label>
-    
+                    <label for="checkMusic"><input type="button" value="음악"
+                            onclick="location.href='main?cat=music'"></label>
+
                     <input type="checkbox" id="checkEtc">
-                    <label for="checkEtc"><input type="button" value="기타" onclick="location.href='main?cat=etc'"></label>
+                    <label for="checkEtc"><input type="button" value="기타"
+                            onclick="location.href='main?cat=etc'"></label>
                 </div>
                 <div class="partyMain" id="partyMain">
                     <div class="partyListMain">
@@ -91,12 +95,12 @@
                                         <th scope="col">파티 번호</th>
                                         <th scope="col">제목</th>
                                         <th scope="col">카테고리</th>
-                                        <th scope="col">총금액(일금액)</th>
-                                        <th scope="col">모집 인원(총 인원)</th>
+                                        <th scope="col">총금액</th>
+                                        <th scope="col">남은 모집 인원</th>
                                         <th scope="col">파티 생성일</th>
-                                        <th scope="col">종료일(남은 기간)</th>
+                                        <th scope="col">종료일</th>
                                         <th scope="col">파티 상태</th>
-                                        <th scope="col">정보/가입</th>
+                                        <th scope="col">정보</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -106,7 +110,9 @@
                                                 <%=item.party_num%>
                                             </td>
                                             <td id="partyTitle" class="t_left" id="partyTitle">
-                                                <a href="./partyDetails?party_num=<%=item.party_num%>" class="partyDetails">
+                                                <%if(item.mem == 1){%>
+                                                          <a href="./partyIn?party_num=<%=item.party_num%>" class="partyDetails">
+                                                <%}else{%><a href="./partyDetails?party_num=<%=item.party_num%>"class="partyDetails"><%}%>
                                                     <%=item.title%>
                                                 </a> <!-- Java Script -->
                                             </td>
@@ -126,7 +132,7 @@
                                                 <%=item.end_date%><!-- java Script, 계산기 -->
                                             </td>
                                             <td id="partyState">
-                                                <%if(item.state==1){%>
+                                                <%if(item.state==1 && item.party_per!=0){%>
                                                     <div>참가 가능</div>
                                                     <%}else{%>
                                                         <div>참가 불가능</div>
@@ -137,9 +143,6 @@
                                                     style="text-overflow: ellipsis;">
                                                     <%=item.answer%>
                                                 </a>
-                                                <a href="./partyJoin" class="partyJoin" id="">즉시
-                                                    가입</a><!-- java Script, 경고문 출력, db삭제 -->
-                                            </td>
                                         </tr>
                                         <%})%>
                                 </tbody>
