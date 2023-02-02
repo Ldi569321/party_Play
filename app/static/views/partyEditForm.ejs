@@ -64,25 +64,26 @@
                     <div class="partyEditL">
                     <label for="">
                         카테고리 <select name="" id="" required>
-                            <option value="" selected>카테고리를 선택해 주세요<!-- Java Script, 파티의 원래 카테고리 받아오기 --></option>
-                            <option value="video">영상</option>
-                            <option value="music">음악</option>
-                            <option value="etc">기타</option>
+                            <option value="">카테고리를 선택해 주세요<!-- Java Script, 파티의 원래 카테고리 받아오기 --></option>
+                            <option value="video" <%if(category == 'video'){%>selected<%}%>>영상</option>
+                            <option value="music" <%if(category == 'music'){%>selected<%}%>>음악</option>
+                            <option value="etc" <%if(category == 'etc'){%>selected<%}%>>기타</option>
                         </select>
                     </label>
                     <label for="">
-                        파티이름 <input type="text" name="" id="" required><!-- Java Script, 파티의 원래 제목 받아오기 -->
+                        파티이름 <input type="text" name="" id="" value="<%=title%>" required><!-- Java Script, 파티의 원래 제목 받아오기 -->
                     </label>
                     <label for="">
-                        모집인원 <input type="number" name="" id="" min="1" max="20" required><!-- Java Script, 파티의 원래 모집인원 받아오기 -->
+                        모집인원 <input type="number" name="" id="" value="<%=party_per%>" min="1" max="10" required><!-- Java Script, 파티의 원래 모집인원 받아오기 -->
                     </label>
                     <label for="">
-                        진행 기간 <input type="date" id="EditDate" readonly>~<input type="date" name="" id="maxDate"
+                        진행 기간 <input type="date" id="EditDate" value="<%=start_date%>" readonly>~<input type="date" name="" id="maxDate" value="<%=end_date%>"
                             required><!-- Java Script, 파티의 원래 진행 기간 받아오기 -->
                     </label>
                     <label for="" style="display: inline;">
                         1일당 금액 <input type="number" name="" id="dayPay" required><button type="button" id="calculateBtn">계산</button>
                         <div id="payCalculate">n일 × n원 = n원</div><!-- Java Script, 파티의 원래 일일당 금액 받아오기 -->
+                        <input type="text" name="" value="<%=result_price%>" style="display: none;">
                     </label>
                 </div>
                     <div class="partyEditR">
@@ -115,5 +116,44 @@
         </div>
     </footer>
 </body>
+<script>
+    
+    const now_utc = Date.now()
+    const timeOff = new Date().getTimezoneOffset() * 60000;
+    const today = new Date(now_utc - timeOff).toISOString().split("T")[0];
 
+    const maxDateY = parseInt(today.substring(0, 4)) + 1;
+
+    const maxDateYMD = maxDateY + today.substring(4, 10);
+
+    document.getElementById('createDate').value = new Date().toISOString().slice(0, 7);
+    document.getElementById('createDate').value = new Date().toISOString().substring(0, 10);
+
+    document.getElementById('maxDate').setAttribute("min", today);
+    document.getElementById('maxDate').setAttribute("max", maxDateYMD);
+
+    const getDateDiff = (d1, d2) => {
+        const date1 = new Date(d1);
+        const date2 = new Date(d2);
+
+        const diffDate = date1.getTime() - date2.getTime();
+
+        return Math.abs(diffDate / (1000 * 60 * 60 * 24));
+    }
+
+    let payCal = document.getElementById("payCalculate");
+
+    const calBtn = document.getElementById("calculateBtn");
+    calBtn.addEventListener("click", () => {
+        if (document.getElementById("dayPay").value == '' || document.getElementById("maxDate").value == '') {
+            alert("필수값이 아직 입력되지 않았습니다.")
+        } else {
+            let dayPay = document.getElementById("dayPay").value;
+            let dayCount = getDateDiff(document.getElementById("createDate").value, document.getElementById("maxDate").value);
+            let result = (dayCount+1) * dayPay;
+            payCal.innerText = `${dayCount+1}일 × ${dayPay}원 = ${result}원`
+            document.querySelector("#result_price").value = result;
+        }
+    })
+</script>
 </html>

@@ -148,11 +148,48 @@ app.get('/logOut', (req, res) => {
   if (req.session.uid != null || req.session.isLogined == true) {
     req.session.uid = null;
     req.session.isLogined = false;
-    res.render('mainForm');
+    
+    const mainSQL = `SELECT party_num, title, category_menu, result_price, party_per, end_date, start_date, state, answer FROM party ORDER BY party_num DESC`;
+    conn.query(mainSQL, (err, row) => {
+      const row_len = Object.keys(row).length;
+  
+      let result = [];
+      row.forEach( row => {
+        let info = {}
+        info.party_num = row.party_num;
+        info.title = row.title;
+        info.category = row.category_menu;
+        info.result_price = row.result_price;
+        info.party_per = row.party_per;
+        info.end_date = row.end_date;
+        info.start_date = row.start_date;
+        info.state = row.state;
+        info.answer = row.answer;
+        result.push(info);
+    })
+    res.render('mainForm', {result: result, total: row_len});
+  })
   } else {
-    req.session.uid = null;
-    req.session.isLogined = false;
-    res.render('mainForm');
+    const mainSQL = `SELECT party_num, title, category_menu, result_price, party_per, end_date, start_date, state, answer FROM party ORDER BY party_num DESC`;
+    conn.query(mainSQL, (err, row) => {
+      const row_len = Object.keys(row).length;
+  
+      let result = [];
+      row.forEach( row => {
+        let info = {}
+        info.party_num = row.party_num;
+        info.title = row.title;
+        info.category = row.category_menu;
+        info.result_price = row.result_price;
+        info.party_per = row.party_per;
+        info.end_date = row.end_date;
+        info.start_date = row.start_date;
+        info.state = row.state;
+        info.answer = row.answer;
+        result.push(info);
+    })
+    res.render('mainForm', {result: result, total: row_len});
+  })
   }
 });
 
@@ -366,8 +403,21 @@ app.get('/partyDetails', (req, res) => {
 
 //파티수정
 app.get('/partyEdit', (req, res) => {
+  console.log(req.query.party_num);
   if (req.session.uid != null || req.session.isLogined == true) {
-    res.render('partyEditForm');
+    const partyEditlSQL = `SELECT party_num, title, category_menu, result_price, party_per, start_date, end_date, state, answer FROM party WHERE party_num='${req.query.party_num}' ORDER BY party_num DESC`;
+    conn.query(partyEditlSQL, (err, row) => {
+      res.render('partyEditForm', {
+        category: row[0].category_menu,
+        title: row[0].title,
+        party_per: row[0].party_per,
+        start_date: row[0].start_date,
+        result_price: row[0].result_price,
+        end_date: row[0].end_date,
+        state: row[0].state,
+        answer: row[0].answer
+      });
+    })
   } else {
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
     res.write(`<script>alert('로그인후 이용 가능합니다.');
@@ -379,7 +429,11 @@ app.get('/partyEdit', (req, res) => {
 //파티참가
 app.get('/partyJoin', (req, res) => {
   if (req.session.uid != null || req.session.isLogined == true) {
-    res.render('partyJoinForm');
+    const partyJoinSQL = `SELECT title, party_leader, party_num, category_menu, end_date, start_date, result_price, answer, member FROM party WHERE party_num='${req.query.party_num}' ORDER BY party_num DESC`;
+    conn.query(partyJoinSQL, (err, row) => {
+      res.render('partyJoinForm');
+    })
+    
   } else {
     res.writeHead(200, { 'Content-Type': '``text/html; charset=utf-8' });
     res.write(`<script>alert('로그인후 이용 가능합니다.');
