@@ -81,20 +81,26 @@
                             required><!-- Java Script, 파티의 원래 진행 기간 받아오기 -->
                     </label>
                     <label for="" style="display: inline;">
-                        1일당 금액 <input type="number" name="" id="dayPay" required><button type="button" id="calculateBtn">계산</button>
+                        1일당 금액 <input type="number" name="" value="<%=day_price%>" id="dayPay" required><button type="button" id="calculateBtn">계산</button>
                         <div id="payCalculate">n일 × n원 = n원</div><!-- Java Script, 파티의 원래 일일당 금액 받아오기 -->
                         <input type="text" name="" value="<%=result_price%>" style="display: none;">
+                    </label>
+                    <label for="">
+                        파티상태<select name="" id="">
+                            <option value="1" <%if(state == '1'){%>selected<%}%>>예</option>
+                            <option value="0" <%if(state == '0'){%>selected<%}%>>아니요</option>
+                        </select>
                     </label>
                 </div>
                     <div class="partyEditR">
                         <label for="">
-                        카카오톡 오픈채팅방 <br><input type="url" class="chatUrl" name="" id="" placeholder="파티를 만들기전 오픈채팅방을 만드세요" required>
+                        카카오톡 오픈채팅방 <br><input type="url" class="chatUrl" name="" id="" value="<%=kakaoChat%>" placeholder="파티를 만들기전 오픈채팅방을 만드세요" required>
                     </label><!-- Java Script, 파티의 원래 오픈채팅방 받아오기 -->
                     <label for="">
-                        오픈채팅방 비밀번호 <br><input type="text" class="chatPass" name="" id="" required>
+                        오픈채팅방 비밀번호 <br><input type="text" class="chatPass" name="" id="" value="<%=kakaoChat_pass%>" required>
                     </label><!-- Java Script, 파티의 원래 오픈채팅방 비밀번호 받아오기 -->
                     <label for="">
-                        부가 설명 <br><textarea style="resize: none;" name="" id="" cols="50" rows="5"></textarea>
+                        부가 설명 <br><textarea style="resize: none;" name="" id="" cols="50" value="<%=answer%>" rows="5"></textarea>
                     </label><!-- Java Script, 파티의 원래 카테고리 받아오기 -->
                         <input type="submit" class="submit" value="수정하기">
                     </div>

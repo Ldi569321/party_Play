@@ -405,16 +405,19 @@ app.get('/partyDetails', (req, res) => {
 app.get('/partyEdit', (req, res) => {
   console.log(req.query.party_num);
   if (req.session.uid != null || req.session.isLogined == true) {
-    const partyEditlSQL = `SELECT party_num, title, category_menu, result_price, party_per, start_date, end_date, state, answer FROM party WHERE party_num='${req.query.party_num}' ORDER BY party_num DESC`;
+    const partyEditlSQL = `SELECT party_num, title, category_menu, result_price, party_per, start_date, day_price, end_date, state, kakaoChat, kakaoChat_pass, answer FROM party WHERE party_num='${req.query.party_num}' ORDER BY party_num DESC`;
     conn.query(partyEditlSQL, (err, row) => {
       res.render('partyEditForm', {
         category: row[0].category_menu,
         title: row[0].title,
         party_per: row[0].party_per,
         start_date: row[0].start_date,
+        day_price: row[0].day_price,
         result_price: row[0].result_price,
         end_date: row[0].end_date,
         state: row[0].state,
+        kakaoChat: row[0].kakaoChat,
+        kakaoChat_pass: row[0].kakaoChat_pass,
         answer: row[0].answer
       });
     })
