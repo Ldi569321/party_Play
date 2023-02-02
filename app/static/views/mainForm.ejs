@@ -59,21 +59,21 @@
             <form action="" method="post">
             <div class="cat"> <!-- 메인 화면(카테고리) -->
                 <input type="checkbox" id="checkCat">
-                <label for="checkCat"><input type="button" value="전체"></label>
+                <label for="checkCat"><input type="button" value="전체" onclick="location.href='main?cat=all'"></label>
                 
                 <input type="checkbox" id="checkVideo">
-                <label for="checkVideo"><input type="button" value="영상"></label>
+                <label for="checkVideo"><input type="button" value="영상" onclick="location.href='main?cat=video'"></label>
 
                 <input type="checkbox" id="checkMusic">
-                <label for="checkMusic"><input type="button" value="음악"></label>
+                <label for="checkMusic"><input type="button" value="음악" onclick="location.href='main?cat=music'"></label>
 
                 <input type="checkbox" id="checkEtc">
-                <label for="checkEtc"><input type="button" value="기타"></label>
+                <label for="checkEtc"><input type="button" value="기타" onclick="location.href='main?cat=etc'"></label>
             </div>
             <div class="partyMain" id="partyMain">
                 <div class="partyListMain">
                     <strong class="partyMainTitle">PartyPlay</strong>
-                    <p class="sub_copy">파티를 가입/생성 하여 헤택을 즐겨보세요!</p>
+                    <p class="sub_copy">파티를 가입/생성 하여 혜택을 즐겨보세요!</p>
             <div class="party_common party_style">
                 <table>
                     <colgroup>
@@ -100,24 +100,24 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <%for(let i=0; i < count; i++) {%>
+                        <%result.forEach( item => {%>
                         <tr id="partyList" class="hide">
-                            <td id="partyNumber"><%=party[0].party_num%></td>
+                            <td id="partyNumber"><%=item.party_num%></td>
                             <td id="partyTitle" class="t_left" id="partyTitle">
-                                <a href="./partyDetails" class="partyDetails"><%=title%></a> <!-- Java Script -->                                        
+                                <a href="./partyDetails?party_num=<%=item.party_num%>" class="partyDetails"><%=item.title%></a> <!-- Java Script -->                                        
                             </td>
-                            <td id="partyCategory"><%=party[0].category_menu%></td>
-                            <td id="partyPay"><%=party[0].result_price%><!-- Java Script, 계산기 --></td>
-                            <td id="partyMember"><%=party[0].party_per%><!-- Java Script, 계산기 --></td>
-                            <td id="partyBirth"><%=party[0].stert_date%></td>
-                            <td id="partyDate"><%=party[0].end_date%><!-- java Script, 계산기 --></td>
-                            <td id="partyState"><%if(party[0].state==1){%><div>참가 가능</div><%}else{%><div>참가 불가능</div><%}%><!-- Java Script --></td>
+                            <td id="partyCategory"><%=item.category%></td>
+                            <td id="partyPay"><%=item.result_price%><!-- Java Script, 계산기 --></td>
+                            <td id="partyMember"><%=item.party_per%><!-- Java Script, 계산기 --></td>
+                            <td id="partyBirth"><%=item.stert_date%></td>
+                            <td id="partyDate"><%=item.end_date%><!-- java Script, 계산기 --></td>
+                            <td id="partyState"><%if(item.state==1){%><div>참가 가능</div><%}else{%><div>참가 불가능</div><%}%><!-- Java Script --></td>
                             <td scope="col" class="right">
-                                <a href="./partyDetails" class="partyDetails" style="text-overflow: ellipsis;"><%=answer%></a>
+                                <a href="./partyDetails" class="partyDetails" style="text-overflow: ellipsis;"><%=item.answer%></a>
                                 <a href="./partyJoin" class="partyJoin" id="">즉시 가입</a><!-- java Script, 경고문 출력, db삭제 -->
                             </td>
                         </tr>
-                        <%}%>
+                        <%})%>
                         </tbody>
                         <tr name="partylist_no" class="">
                             <td colspan="9">

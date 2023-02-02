@@ -56,35 +56,135 @@
         </aside>
 
         <main>
-            <form action="#" method="post"> <!-- 메인 화면(카테고리, 파티칸) -->
-                <div class="partyJoin">
-                    <h1><strong>파티 가입</strong></h1>
-                    <div class="partyJoinInput">
-                        <input type="text" id="id" placeholder="전달할 아이디"><br>
-                        <select id="payment" required>
-                            <option value="" selected>결제 수단 선택</option>
-                            <option value="신용카드 또는 체크카드 결제">신용카드 또는 체크카드 결제</option>
-                            <option value="PAYCO">PAYCO</option>
-                            <option value="계좌 연결">계좌 연결</option>
-                        </select>
-                    </div>
-                    <br><br>
+            <!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" media="all and (min-width:1200px)" href="/css/defaultPC.css">
+    <link rel="stylesheet" media="all and (max-width:1199px)" href="/css/defaultMOBILE.css">
+    <link rel="stylesheet" href="/css/partyJoinForm.css">
+    <link rel="stylesheet" href="/css/fontawesome-free-6.2.1-web/css/all.min.css">
+    <script src="/css/fontawesome-free-6.2.1-web/js/all.min.js"></script>
+    <script defer src="/js/app.js"></script>
+    <title>PartyPlay</title>
+</head>
+<body>
+    <div class="menu" style="display: none;">
+        <div class="menuBox">
+            <div>
+                <a href="partyManageMain">내파티 관리</a>
+            </div>
+            <div>
+                <a href="support">고객센터</a>
+            </div>
+            <div>
+                <a href="createParty">파티 생성</a>
+            </div>
+        </div>
+    </div>
 
-                    <h3>파티 유지 기간</h3>
-                    <div class="partyJoinInput">
-                        <input type="month">
-                        <br><br>
+    <header> <!-- 헤더(로고, 메뉴, 회원정보) -->
+        <div class="menubar">
+            <div><i class="fa-solid fa-bars"></i></div>
+        </div>
+        <div class="logo">
+            <a href="./main">
+                <img src="/img/logo.png" alt="">
+            </a>
+        </div>
+        <div class="account">
+            <div>
+                <a class="myAccount" href="account">내정보</a>
+            </div>
+            <div>
+                <a class="logOut" href="logOut ">로그아웃</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="mainBox">
+        <aside> <!-- 왼쪽 광고 -->
+            <div class="ad1">
+                <img class="ad" src="">
+            </div>
+        </aside>
+
+        <main>
+            <div class="partyDetailsMain" id="partyDetailsMain">
+                <div class="partyDetailsListMain">
+                    <strong class="partyDetailsTitle"><%=title%></strong>
+                    <div class="partyDetailsSub">
+                        <table>
+                            <colgroup>
+                                <col style="width: 10%;">
+                                <col style="width: 10%;">
+                                <col style="width: 40%;">
+                                <col style="width: 10%;">
+                                <col style="width: 10%;">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th scope="col"><div class="partyDetailsPartyCaptain" id="partyCaptain">파티장 : </div></th>
+                                    <th scope="col"><%=leader%><!-- Java Script, 파티장 이름 가져오기 --></th>
+                                    <th scope="col"> </th>
+                                    <th scope="col"><div class="partyDetailsPartyNum" id="partyNum">파티 번호 : </div></th>
+                                    <th scope="col"><%=party_num%><!-- Java Script, 파티 번호 가져오기 --></th>
+                                </tr>
+                            </thead>
+                        </table>
                     </div>
 
-                    <h3>연락수단</h3>
-                    <div class="partyJoinInput">
-                        <input type="email" id="email" placeholder="메일">
-                        <input type="tel" id="" placeholder="전화번호"><br><br><br>
+                    <div class="partyDetailsList">
+                        <table>
+                            <colgroup>
+                                <col style="width: 10%;">
+                                <col style="width: 10%;">
+                                <col style="width: 40%;">
+                                <col style="width: 10%;">
+                                <col style="width: 10%;">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th scope="col">종료일:</th>
+                                    <th scope="col" id=""><%=end_date%></th>
+                                    <th scope="col"> </th>
+                                    <th scope="col">비용:</th>
+                                    <th scope="col" id=""><%=result_price%></th>
+                                </tr>    
+                            </thead>
+                        </table>
+                    </div>
+                    
+                    <div class="partyDetailsExplanation" id="">
+                        <textarea name="" id="" cols="30" rows="10" readonly><%=answer%></textarea>
+                    </div>
+                    <div class="partyDetailsButton">
+                        <a href="main" class="goBack" id="">목록</a>
+                        <a href="partyJoin" class="partyJoin" id="">참가</a>
                     </div>
 
-                    <input type="submit" class="submit" id="submit" src="#" value="제출">
                 </div>
-            </form>
+            </div>
+        </main>
+
+        <aside> <!-- 오른쪽 광고 -->
+            <div class="ad2">
+                <img class="ad" src="">
+            </div>
+        </aside>
+    </div>
+    <footer> <!-- 정보칸 -->
+        <div class="information">
+            <div>PartyPlay는 통신판매중개자이며, 통신판매의 당사자가 아닙니다. 파티정보, 구매에 관한 의무와 책임은 판매자에게 있습니다.</div>
+            <div>PartyPlay는 소비자 보호와 안전거래를 위해 고객센터를 운영하고 있으며, 분쟁이 발생 된 경우 별도의 분쟁처리절차에 의거분쟁해결 및 청약철회 등이 진행 됩니다.</div>
+            <div>조장: 이동인 제작 인원: 3명(김승민, 이동인, 이호재) 상일미디어 고등학교: 서울특별시 강동구 천호대로219길 61</div>
+        </div>
+    </footer>
+    
+</body>
+</html>
         </main>
 
         <aside> <!-- 오른쪽 광고 -->

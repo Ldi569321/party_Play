@@ -59,78 +59,100 @@
             <form action="">
                 <div class="cat"> <!-- 메인 화면(카테고리) -->
                     <input type="checkbox" id="checkCat">
-                    <label for="checkCat"><input type="button" value="전체"></label>
-                    
+                    <label for="checkCat"><input type="button" value="전체" onclick="location.href='main?cat=all'"></label>
+                
                     <input type="checkbox" id="checkVideo">
-                    <label for="checkVideo"><input type="button" value="영상"></label>
+                    <label for="checkVideo"><input type="button" value="영상" onclick="location.href='main?cat=video'"></label>
     
                     <input type="checkbox" id="checkMusic">
-                    <label for="checkMusic"><input type="button" value="음악"></label>
+                    <label for="checkMusic"><input type="button" value="음악" onclick="location.href='main?cat=music'"></label>
     
                     <input type="checkbox" id="checkEtc">
-                    <label for="checkEtc"><input type="button" value="기타"></label>
+                    <label for="checkEtc"><input type="button" value="기타" onclick="location.href='main?cat=etc'"></label>
                 </div>
                 <div class="partyMain" id="partyMain">
                     <div class="partyListMain">
                         <strong class="partyMainTitle">PartyPlay</strong>
-                        <p class="sub_copy">파티를 가입/생성 하여 헤택을 즐겨보세요!</p>
-                        <p class="sub_copy2">※ 개인정보 유출에 주의하세요! </p>
-                <div class="party_common party_style">
-                    <table>
-                        <colgroup>
-                            <col style="width: 10%;">
-                            <col style="width: 10%;">
-                            <col style="width: 10%;">
-                            <col style="width: 10%;">
-                            <col style="width: 10%;">
-                            <col style="width: 10%;">
-                            <col style="width: 10%;">
-                            <col style="width: 10%;">
-                        </colgroup>
-                        <thead>
-                            <tr>
-                                <th scope="col">파티 번호</th>
-                                <th scope="col">제목</th>
-                                <th scope="col">카테고리</th>
-                                <th scope="col">총금액(일금액)</th>
-                                <th scope="col">모집 인원(총 인원)</th>
-                                <th scope="col">종료일(남은 기간)</th>
-                                <th scope="col">파티 생성일</th>
-                                <th scope="col">파티 상태</th>
-                                <th scope="col">정보/가입</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr id="partyList" class="hide">
-                                <td id="partyNumber">00001</td>
-                                <td id="partyTitle" class="t_left" id="partyTitle">
-                                    <a href="./partyDetails" class="partyDetails">
-                                        도제프로젝트test도제프로젝트test도제프로젝트test도제프로젝트
-                                    </a> <!-- Java Script -->                                        
-                                </td>
-                                <td id="partyCategory">categoryDefault</td><!-- Java Script -->
-                                <td id="partyPay">nn원(dd원)<!-- Java Script, 계산기 --></td>
-                                <td id="partyMember">hire member(all)<!-- Java Script, 계산기 --></td>
-                                <td id="partyDate">2023.01.31(left date)<!-- java Script, 계산기 --></td>
-                                <td id="partyBirth">2023.01.10</td>
-                                <td id="partyState">
-                                    모집중  <!-- Java Script -->
-                                </td>
-                                <td scope="col" class="right">
-                                    <a href="./partyDetails" class="partyDetails" id="">파티 정보</a>
-                                    <a href="./partyJoin" class="partyJoin" id="">즉시 가입</a><!-- java Script, 경고문 출력, db삭제 -->
-                                </td>
-                            </tr>
+                        <p class="sub_copy">파티를 가입/생성 하여 혜택을 즐겨보세요!</p>
+                        <div class="party_common party_style">
+                            <table>
+                                <colgroup>
+                                    <col style="width: 10%;">
+                                    <col style="width: 10%;">
+                                    <col style="width: 10%;">
+                                    <col style="width: 10%;">
+                                    <col style="width: 10%;">
+                                    <col style="width: 10%;">
+                                    <col style="width: 10%;">
+                                    <col style="width: 10%;">
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">파티 번호</th>
+                                        <th scope="col">제목</th>
+                                        <th scope="col">카테고리</th>
+                                        <th scope="col">총금액(일금액)</th>
+                                        <th scope="col">모집 인원(총 인원)</th>
+                                        <th scope="col">파티 생성일</th>
+                                        <th scope="col">종료일(남은 기간)</th>
+                                        <th scope="col">파티 상태</th>
+                                        <th scope="col">정보/가입</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <%result.forEach( item=> {%>
+                                        <tr id="partyList" class="hide">
+                                            <td id="partyNumber">
+                                                <%=item.party_num%>
+                                            </td>
+                                            <td id="partyTitle" class="t_left" id="partyTitle">
+                                                <a href="./partyDetails?party_num=<%=item.party_num%>" class="partyDetails">
+                                                    <%=item.title%>
+                                                </a> <!-- Java Script -->
+                                            </td>
+                                            <td id="partyCategory">
+                                                <%=item.category%>
+                                            </td>
+                                            <td id="partyPay">
+                                                <%=item.result_price%><!-- Java Script, 계산기 -->
+                                            </td>
+                                            <td id="partyMember">
+                                                <%=item.party_per%><!-- Java Script, 계산기 -->
+                                            </td>
+                                            <td id="partyBirth">
+                                                <%=item.start_date%>
+                                            </td>
+                                            <td id="partyDate">
+                                                <%=item.end_date%><!-- java Script, 계산기 -->
+                                            </td>
+                                            <td id="partyState">
+                                                <%if(item.state==1){%>
+                                                    <div>참가 가능</div>
+                                                    <%}else{%>
+                                                        <div>참가 불가능</div>
+                                                        <%}%><!-- Java Script -->
+                                            </td>
+                                            <td scope="col" class="right">
+                                                <a href="./partyDetails" class="partyDetails"
+                                                    style="text-overflow: ellipsis;">
+                                                    <%=item.answer%>
+                                                </a>
+                                                <a href="./partyJoin" class="partyJoin" id="">즉시
+                                                    가입</a><!-- java Script, 경고문 출력, db삭제 -->
+                                            </td>
+                                        </tr>
+                                        <%})%>
+                                </tbody>
                                 <tr name="partylist_no" class="">
                                     <td colspan="9">
                                         <h1><strong>Party Play</strong></h1>
                                         <p class="sub_copy3" id="partylastList">목록은 여기까지 입니다.</p>
-                                        <a href="createParty" class="partyMainCreate" id="partyMainCreate">파티 생성하기</a><br><br>
+                                        <a href="createParty" class="partyMainCreate" id="partyMainCreate">파티
+                                            생성하기</a><br><br>
                                     </td>
                                 </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                            </table>
+                        </div>
                         <div class="paging_wrap">
                             <ul id="partyPaging" class="pagingUl" style="display: none;">
                                 <li><a class="" name="0.1" order="1" href="">1</a></li><!-- Java Script-->

@@ -2,6 +2,7 @@
 .MyBox {
     margin-top: 30px;
     min-width: 600px;
+    min-height: 200px;
 }
 
 .MyMain .MyUserMain{

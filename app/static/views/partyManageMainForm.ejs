@@ -60,7 +60,6 @@
                 <div class="partyManageListMain">
                     <strong class="partyManageCheck">내 파티 관리 &nbsp;My Party Management</strong>
                     <p class="sub_copy">내 파티를 관리하실 수 있습니다.</p>
-                    <p class="sub_copy2">※ 개인정보 유출에 주의하세요! </p>
                     <div class="partyManageList_common partyManageList_style">
                         <table>
                             <colgroup>
@@ -81,41 +80,61 @@
                                     <th scope="col">카테고리</th>
                                     <th scope="col">총금액(일금액)</th>
                                     <th scope="col">모집 인원(총 인원)</th>
-                                    <th scope="col">종료일(남은 기간)</th>
                                     <th scope="col">파티 생성일</th>
+                                    <th scope="col">종료일(남은 기간)</th>
                                     <th scope="col">파티 상태</th>
                                     <th scope="col">관리</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr id="partyList" class="hide">
-                                    <td id="partyNumber">00001</td>
-                                    <td id="partyTitle" class="t_left" id="partyTitle">
-                                        <a href="./partyDetails" class="partyDetails">
-                                            도제프로젝트test도제프로젝트test도제프로젝트test도제프로젝트
-                                        </a> <!-- Java Script -->                                        
-                                    </td>
-                                    <td id="partyCategory">categoryDefault</td><!-- Java Script -->
-                                    <td id="partyPay">nn원(dd원)<!-- Java Script, 계산기 --></td>
-                                    <td id="partyMember">hire member(all)<!-- Java Script, 계산기 --></td>
-                                    <td id="partyDate">2023.01.31(left date)<!-- java Script, 계산기 --></td>
-                                    <td id="partyBirth">2023.01.10</td>
-                                    <td id="partyState">
-                                        모집중  <!-- Java Script -->
-                                    </td>
-                                    <td scope="col">
-                                        <a href="partyEdit" class="partyEdit">수정</a>
-                                        <a href="" class="partyManagePartyDrop" id="partyManagePartyDrop">삭제</a><!-- java Script, 경고문 출력, db삭제 -->
-                                    </td>
-                                </tr>
-                                <tr id="partylist_no" class="">
+                                <%Myresult.forEach( item=> {%>
+                                    <tr id="partyList" class="hide">
+                                        <td id="partyNumber">
+                                            <%=item.party_num%>
+                                        </td>
+                                        <td id="partyTitle" class="t_left" id="partyTitle">
+                                            <a href="./partyDetails" class="partyDetails">
+                                                <%=item.title%>
+                                            </a> <!-- Java Script -->
+                                        </td>
+                                        <td id="partyCategory">
+                                            <%=item.category%>
+                                        </td>
+                                        <td id="partyPay">
+                                            <%=item.result_price%><!-- Java Script, 계산기 -->
+                                        </td>
+                                        <td id="partyMember">
+                                            <%=item.party_per%><!-- Java Script, 계산기 -->
+                                        </td>
+                                        <td id="partyBirth">
+                                            <%=item.start_date%>
+                                        </td>
+                                        <td id="partyDate">
+                                            <%=item.end_date%><!-- java Script, 계산기 -->
+                                        </td>
+                                        <td id="partyState">
+                                            <%if(item.state==1){%>
+                                                <div>참가 가능</div>
+                                                <%}else{%>
+                                                    <div>참가 불가능</div>
+                                                    <%}%><!-- Java Script -->
+                                        </td>
+                                        <td scope="col" class="right">
+                                            <a href="./partyDetails" class="partyDetails"
+                                                style="text-overflow: ellipsis;">
+                                                <%=item.answer%>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <%})%>
+                            </tbody>
+                            <tr id="partylist_no" class="">
                                     <td colspan="9">
                                         <h1><strong>Party Play</strong></h1>
                                         <p class="sub_copy3" id="partylastList">목록은 여기까지 입니다.</p>
                                         <a href="createParty" class="partyCreate" id="partyCreate">파티 생성하기</a><br><br>
                                     </td>
                                 </tr>
-                            </tbody>
                         </table>
                     </div>
                     <div class="paging_wrap">

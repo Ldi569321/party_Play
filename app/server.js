@@ -41,32 +41,75 @@ app.use(session({
 
 //메인화면
 app.get('/main', (req, res) => {
-  console.log(req.session.uid);
-  console.log(req.session.isLogined);
-  const mainSQL = `SELECT party_num, title, category_menu, result_price, party_per, end_date, start_date, state, answer FROM party ORDER BY party_num DESC`;
-  conn.query(mainSQL, (err, row) => {
-    console.log(row)
-    if (req.session.uid != null || req.session.isLogined == true) {
-      res.render('mainFormLogined', {
-        party: row
-      });
-    } else {
-      req.session.uid = null;
-      req.session.isLogined = false;
-      res.render('mainForm', {
-        party_num: row[0].party_num,
-        title: row[0].title,
-        category: row[0].party_menu,
-        result_price: row[0].result_price,
-        party_person: row[0].party_per,
-        end_date: row[0].end_date,
-        start_date: row[0].start_date,
-        state: row[0].state,
-        answer: row[0].answer,
-        count: row.length
-      });
+  //카테고리가 있을때
+  if(req.query.cat != null) {
+    console.log(req.query.cat);
+    let categorySQL;
+    if(req.query.cat == 'all' ){
+      categorySQL = `SELECT party_num, title, category_menu, result_price, party_per, end_date, start_date, state, answer FROM party ORDER BY party_num DESC`;
+    }else{
+      categorySQL = `SELECT party_num, title, category_menu, result_price, party_per, end_date, start_date, state, answer FROM party WHERE category_menu = '${req.query.cat}' ORDER BY party_num DESC`;
     }
-  });
+    
+    conn.query(categorySQL, (err, row) => {
+  
+      const row_len = Object.keys(row).length;
+  
+      let result = [];
+      row.forEach( row => {
+        let info = {}
+        info.party_num = row.party_num;
+        info.title = row.title;
+        info.category = row.category_menu;
+        info.result_price = row.result_price;
+        info.party_per = row.party_per;
+        info.end_date = row.end_date;
+        info.start_date = row.start_date;
+        info.state = row.state;
+        info.answer = row.answer;
+        result.push(info);
+      });
+      console.log(result);
+      if (req.session.uid != null || req.session.isLogined == true) {
+        res.render('mainFormLogined', {result: result, total: row_len});
+      } else {
+        req.session.uid = null;
+        req.session.isLogined = false;
+        res.render('mainForm', {result: result, total: row_len});
+      }
+    });
+  } 
+  //카테고리가 없을때
+  else {
+    const mainSQL = `SELECT party_num, title, category_menu, result_price, party_per, end_date, start_date, state, answer FROM party ORDER BY party_num DESC`;
+    conn.query(mainSQL, (err, row) => {
+  
+      const row_len = Object.keys(row).length;
+  
+      let result = [];
+      row.forEach( row => {
+        let info = {}
+        info.party_num = row.party_num;
+        info.title = row.title;
+        info.category = row.category_menu;
+        info.result_price = row.result_price;
+        info.party_per = row.party_per;
+        info.end_date = row.end_date;
+        info.start_date = row.start_date;
+        info.state = row.state;
+        info.answer = row.answer;
+        result.push(info);
+      });
+      console.log(result);
+      if (req.session.uid != null || req.session.isLogined == true) {
+        res.render('mainFormLogined', {result: result, total: row_len});
+      } else {
+        req.session.uid = null;
+        req.session.isLogined = false;
+        res.render('mainForm', {result: result, total: row_len});
+      }
+    });
+  }
 });
 
 //로그인
@@ -192,8 +235,26 @@ app.get('/account', (req, res) => {
 
 //파티관리
 app.get('/partyManageMain', (req, res) => {
+const mainSQL = `SELECT party_num, title, category_menu, result_price, party_per, end_date, start_date, state, answer FROM party WHERE party_leader='${req.session.uid}' ORDER BY party_num DESC`;
+conn.query(mainSQL, (err, row) => {
   if (req.session.uid != null || req.session.isLogined == true) {
-    res.render('partyManageMainForm');
+  const row_len = Object.keys(row).length;
+  let Myresult = [];
+  row.forEach( row => {
+    let info = {}
+    info.party_num = row.party_num;
+    info.title = row.title;
+    info.category = row.category_menu;
+    info.result_price = row.result_price;
+    info.party_per = row.party_per;
+    info.end_date = row.end_date;
+    info.start_date = row.start_date;
+    info.state = row.state;
+    info.answer = row.answer;
+    Myresult.push(info);
+  });
+  console.log(Myresult);
+    res.render('partyManageMainForm', {Myresult: Myresult, total: row_len});
   } else {
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
     res.write(`<script>alert('로그인후 이용 가능합니다.');
@@ -202,10 +263,13 @@ app.get('/partyManageMain', (req, res) => {
   }
 });
 
+});
+
 //고객센터
 app.get('/support', (req, res) => {
   console.log(req.session);
   if (req.session.uid != null || req.session.isLogined == true) {
+    
     res.render('supportForm');
   } else {
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
@@ -285,7 +349,19 @@ app.post('/findMyAcount', (req, res) => {
 
 //파티 정보
 app.get('/partyDetails', (req, res) => {
-  res.render('partyDetailsForm');
+  console.log(req.params.party_num);
+  const partyDetailSQL = `SELECT title, party_leader, party_num, category_menu, end_date, start_date, result_price, answer, member FROM party WHERE party_num='${req.query.party_num}' ORDER BY party_num DESC`;
+  conn.query(partyDetailSQL, (err, row) => {
+    res.render('partyDetailsForm', {
+      title: row[0].title,
+      leader: row[0].party_leader,
+      party_num: row[0].party_num,
+      end_date: row[0].end_date,
+      result_price: row[0].result_price,
+      answer: row[0].answer
+    })
+
+  })
 });
 
 //파티수정
