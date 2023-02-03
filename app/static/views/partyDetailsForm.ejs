@@ -71,7 +71,7 @@
                             <colgroup>
                                 <col style="width: 10%;">
                                 <col style="width: 10%;">
-                                <col style="width: 40%;">
+                                <col style="width: 50%;">
                                 <col style="width: 10%;">
                                 <col style="width: 10%;">
                             </colgroup>
@@ -113,7 +113,7 @@
                     </div>
                     <div class="partyDetailsButton">
                         <a href="main" class="goBack" id="">목록</a>
-                        <%if(party_leader != session_uid && party_per != 0){%>
+                        <%if(leader != session_uid && party_per != 0){%>
                         <a href="partyJoin?party_num=<%=party_num%>" class="partyJoin" id="">참가</a>
                         <%}%>
                     </div>

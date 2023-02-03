@@ -58,11 +58,11 @@
         <main> <!-- 메인 화면(카테고리, 파티칸) -->
             <a class="record" href="record">내 문의내역</a>
             <div class="service">
-                <form action="#">
+                <form action="recordSend" method="post">
                     <h1>고객센터</h1><br><br>
                     <h3>분쟁카테고리</h3>
                     <div class="dispute">
-                        <select id="card" required>
+                        <select id="card" name="category" required>
                             <option value="" selected>카테고리 선택</option>
                             <option value="refund">입출금 환불</option>
                             <option value="account">회원정보</option>
@@ -73,7 +73,7 @@
                     <h3>분쟁내용</h3>
                     <div class="dispute2">
 
-                        <textarea placeholder="[기재사항] 아이디명"></textarea>
+                        <textarea placeholder="[기재사항] 아이디명" name="question"></textarea>
                     </div>
                     <input type="submit" class="submit" value="문의하기">
                 </form>

@@ -314,8 +314,8 @@ app.post('/createPartySys', (req, res) => {
   console.log(req.body);
   const cretePartySQL = `INSERT INTO party (title, party_per, start_Date, end_Date, day_price, result_price, kakaoChat, kakaoChat_pass, answer, category, party_leader)
                                       values ('${req.body.title}', '${req.body.party_per}', '${req.body.start_Date}', 
-                                      '${req.body.end_Date}', '${req.body.dayPrice}', '${req.body.resultPrice}', 
-                                      '${req.body.kakaoChat}', '${req.body.kakaoChat_pass}', '${req.body.answer}', '${req.body.category}', '${req.session.uid}');`;
+                                      '${req.body.end_Date}','${req.body.dayPrice}', '${req.body.resultPrice}', 
+                                      '${req.body.kakaoChat}','${req.body.kakaoChat_pass}','${req.body.answer}','${req.body.category}','${req.session.uid}');`;
   conn.query(cretePartySQL, (err, row) => {
     if (err) throw err;
     res.write('<script>location.href="/main"</script>')
@@ -327,6 +327,7 @@ app.get('/partyDetails', (req, res) => {
   console.log(req.params.party_num);
   const partyDetailSQL = `SELECT title, party_leader, party_num, category, end_date, start_date, result_price, answer, member, state, party_per FROM party WHERE party_num='${req.query.party_num}' ORDER BY party_num DESC`;
   conn.query(partyDetailSQL, (err, row) => {
+    console.log(row[0].party_leader, )
     res.render('partyDetailsForm', {
       title: row[0].title,
       leader: row[0].party_leader,
@@ -334,12 +335,10 @@ app.get('/partyDetails', (req, res) => {
       end_date: row[0].end_date,
       result_price: row[0].result_price,
       answer: row[0].answer,
-      party_leader: row[0].party_leader,
       session_uid: req.session.uid,
       state: row[0].state,
       party_per: row[0].party_per
     })
-
   })
 });
 
@@ -396,7 +395,6 @@ app.get('/partyJoin', (req, res) => {
         party_num: req.query.party_num
       });
     })
-
   } else {
     res.writeHead(200, { 'Content-Type': '``text/html; charset=utf-8' });
     res.write(`<script>alert('로그인후 이용 가능합니다.');
@@ -507,16 +505,12 @@ app.get('/partyIn', (req, res) => {
 
 //파티 가입완료 쿼리
 app.post('/partyIn', (req, res) => {
-  const partyJoinSQL = `INSERT INTO sendInfo ('${req.body.party_num}', '${req.session.uid}', '${req.body.send_id}', '${send_pay}', '${send_email}')`;
-  conn.query(partyJoinSQL, (err, row) => {
-    if (err) throw err;
-    res.render('partyJoinForm', {
-      party_num: req.query.party_num
-    });
-  })
   let party_member = null;
   if (req.session.uid != null || req.session.isLogined == true) {
-    const findPersonSQL = `select member from party where party_num = '${req.body.party_num}'`;
+    const partyJoinSQL = `INSERT INTO sendInfo VALUES ('${req.body.party_num}', '${req.session.uid}', '${req.body.send_id}', '${req.body.send_pay}', '${req.body.send_email}')`;
+    conn.query(partyJoinSQL, (err, row) => {
+      if (err) throw err;
+      const findPersonSQL = `select member from party where party_num = '${req.body.party_num}'`;
     conn.query(findPersonSQL, (err, row) => {
       if (err) throw err;
       party_member = row[0].member;
@@ -547,6 +541,8 @@ app.post('/partyIn', (req, res) => {
         })
       })
     })
+    })
+    
   } else {
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
     res.write(`<script>alert('로그인후 이용 가능합니다.');
@@ -572,10 +568,40 @@ app.get('/support', (req, res) => {
   }
 });
 
+//문의 발송
+app.post('/recordSend', (req, res) => {
+  if (req.session.uid != null || req.session.isLogined == true) {
+    const recordSendSQL = `INSERT INTO CustomerService (category, question, id, state, date) VALUES ('${req.body.category}', '${req.body.question}', '${req.session.uid}', '0', curdate());`
+    conn.query(recordSendSQL, (err, row) => {
+      if(err) throw err;
+      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+      res.write(`<script>alert('성공적으로 발송 되었습니다.');
+      location.href="record";
+      </script>`);
+    })
+  } else {
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    res.write(`<script>alert('로그인후 이용 가능합니다.');
+    history.back();
+    </script>`);
+  }
+})
+
 //문의내용
 app.get('/recordDetails', (req, res) => {
   if (req.session.uid != null || req.session.isLogined == true) {
-    res.render('recordDetailsForm');
+    const recordDetailSQL = `SELECT service_num, category, question, DATE_FORMAT(date, "%Y-%m-%d") date, state, answer FROM CustomerService WHERE service_num='${req.query.service_num}';`;
+    conn.query(recordDetailSQL, (err, row) => {
+      if(err) throw err;
+      res.render('recordDetailsForm', {
+        service_num: row[0].service_num,
+        category: row[0].category,
+        question: row[0].question,
+        date: row[0].date,
+        state: row[0].state,
+        answer: row[0].answer
+      });
+    })
   } else {
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
     res.write(`<script>alert('로그인후 이용 가능합니다.');
@@ -587,7 +613,21 @@ app.get('/recordDetails', (req, res) => {
 //문의내역
 app.get('/record', (req, res) => {
   if (req.session.uid != null || req.session.isLogined == true) {
-    return res.render('recordForm');
+    const recordSQL = `SELECT service_num, category, question, DATE_FORMAT(date, "%Y-%m-%d") date, state FROM CustomerService WHERE id='${req.session.uid}';`;
+    conn.query(recordSQL, (err, row) => {
+      const row_len = Object.keys(row).length;
+      let result = [];
+      row.forEach(row => {
+        let info = {}
+        info.service_num = row.service_num;
+        info.category = row.category;
+        info.question = row.question;
+        info.date = row.date;
+        info.state = row.state;
+        result.push(info);
+      })
+      res.render('recordForm', {result: result, total:row_len });
+    })
   } else {
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
     res.write(`<script>alert('로그인후 이용 가능합니다.');

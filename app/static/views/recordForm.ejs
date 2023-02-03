@@ -65,32 +65,46 @@
                         <table>
                            <colgroup>
                                 <col style="width: 10%;">
-                                <col style="width: 45%;">
+                                <col style="width: 15%;">
+                                <col style="width: 30%;">
                                 <col style="width: 20%;">
                                 <col style="width: 25%;">
                             </colgroup>
                             <thead>
                                 <tr>
                                     <th scope="col">번호</th>
-                                    <th scope="col">제목</th>
+                                    <th scope="col">카테고리</th>
+                                    <th scope="col">내용</th>
                                     <th scope="col">날짜</th>
                                     <th scope="col">처리상태</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr name="recordlist" class="hide">
-                                    <td name="NUM">00</td>
-                                    <td name="tdTitle" class="t_left" id="tdTitle">
-                                        <a href="./recordDetailsForm" title="내 문의내역 상세보기">
-                                            결제분쟁                    
+                                    <%result.forEach( item=> {%>
+                                    <td name="service_num"><%=item.service_num%></td>
+                                    <td name="category"><%if(item.category == 'refund'){%>입출금 환불
+                                                        <%}else if(item.category == 'account'){%>회원정보
+                                                        <%}else if(item.category == 'party'){%>파티문의<%}%>
+                                                    </td>
+                                    <td name="question" class="t_left" id="question">
+                                        <a href="./recordDetails?service_num=<%=item.service_num%>" title="내 문의내역 상세보기">
+                                           <%=item.question %>                 
                                         </a>
                                     </td>
-                                    <td name="FirstOpenDate">2022.01.01</td>
-                                    <td name="State">문의접수</td>
+                                    <td name="FirstOpenDate"><%=item.date%></td>
+                                    <td name="State">
+                                        <%if(item.state == 0){%>문의접수
+                                        <%}else if(item.state == 1){%>검토중
+                                        <%}else if(item.state == 2){%>답변완료<%}%>
+                                    </td>
                                 </tr>
+                                <%if(item == null){%>
                                 <tr name="recordlist_no" class="">
                                     <td colspan="4">최근 문의하신 내역이 없습니다.</td>
                                 </tr>
+                                <%}%>
+                                <%})%>
                             </tbody>
                         </table>
                     </div>
