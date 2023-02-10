@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ko" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" media="all and (min-width:1200px)" href="/css/defaultPC.css">
+    <link rel="stylesheet" media="all and (max-width:1199px)" href="/css/defaultMOBILE.css">
+    <link rel="stylesheet" href="/css/recordDetailsForm.css">
+    <link rel="stylesheet" href="/css/fontawesome-free-6.2.1-web/css/all.min.css">
+    <script src="/css/fontawesome-free-6.2.1-web/js/all.min.js"></script>
+    <script defer src="/js/app.js"></script>
+    <title>PartyPlay</title>
+</head>
+
+<body>
+    <div class="menu" style="display: none;">
+        <div class="menuBox">
+            <div>
+                <a href="partyManageMain">내파티 관리</a>
+            </div>
+            <div>
+                <a href="support">고객센터</a>
+            </div>
+            <div>
+                <a href="createParty">파티 생성</a>
+            </div>
+        </div>
+    </div>
+
+    <header> <!-- 헤더(로고, 메뉴, 회원정보) -->
+        <div class="menubar">
+            <div><i class="fa-solid fa-bars"></i></div>
+        </div>
+        <div class="logo">
+            <a href="/main">
+                <img src="./img/logo.png" alt="">
+            </a>
+        </div>
+        <div class="account">
+            <div>
+                <a class="myAccount" href="account">내정보</a>
+            </div>
+            <div>
+                <a class="logOut" href="logOut ">로그아웃</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="mainBox">
+        <aside> <!-- 왼쪽 광고 -->
+            <div class="ad1">
+                <img class="ad" src="">
+            </div>
+        </aside>
+        <main> <!-- 메인 화면(카테고리, 파티칸) -->
+            <form action="supportAnswer" method="post">
+                <div class="help_content_bx">
+                    <div class="content_bx_st">
+                        <strong class="tit">내 문의내역</strong>
+                        <p class="sub_copy">최근 접수하신 문의내역 및 답변 내용을 확인하실 수 있습니다.</p>
+                        <a class="record" href="recordForm">목록보기</a>
+                        <p class="sub_copy2">※ 문의 내용 중 개인정보가 포함되었거나 중복된 문의인 경우 삭제될 수 있습니다.</p>
+                        <div class="help_tb1_common help_tb1_style01 help_tb1_style03">
+                            <table>
+                                <colgroup>
+                                    <col style="width: 20%;">
+                                    <col style="width: 30%;">
+                                    <col style="width: 20%;">
+                                    <col style="width: 30%;">
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">등록일</th>
+
+                                        <td><span id="firstdate">
+                                                <%=date%>
+                                            </span></td>
+
+                                        <th scope="row">처리상태</th>
+                                        <td scope="row">
+                                            <div value="0" <%if(state=='0' ){%>>문의접수</div>
+                                            <div value="1" <%} else if(state=='1' ){%>>검토중</div>
+                                            <div value="2" <%} else if(state=='2' ){%>>답변완료</div>
+                                            <%}%>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">카테고리</th>
+
+                                        <td colspan="3"><span id="title">
+                                                <%if(category=='refund' ){%>입출금 환불
+                                                    <%}else if(category=='account' ){%>회원정보
+                                                        <%}else if(category=='party' ){%>파티문의<%}%>
+                                            </span></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">내용</th>
+                                        <td colspan="3" id="record">
+                                            <div class="tb1_content_bx">
+                                                <span id="content">
+                                                    <%=question%>
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tb1_content_bx" id="recontent">
+                        <div class="help_tb1_common help_tb1_style01">
+                            <table>
+                                <colgroup>
+                                    <col style="width: 20%;">
+                                    <col style="width: 30%;">
+                                    <col style="width: 20%;">
+                                    <col style="width: 30%;">
+                                </colgroup>
+                                <tbody>
+                                    <tr id="recontent">
+                                        <th scope="row">답변</th>
+                                        <td colspan="3">
+                                            <textarea class="tb1_content_bx" style="resize: none;" name="answer"
+                                                cols="150"></textarea>
+                                            <input type="text" name="service_num" value="<%=service_num%>" style="display: none;">
+                                        </td>
+                                        <td style="text-align: center;">
+                                                <input type="submit" class="submit" value="검토중" name="state">
+                                                <input type="submit" class="submit" value="답변완료" name="state">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </main>
+
+        <aside> <!-- 오른쪽 광고 -->
+            <div class="ad2">
+                <img class="ad" src="">
+            </div>
+        </aside>
+    </div>
+    <footer> <!-- 정보칸 -->
+        <div class="information">
+            <div>PartyPlay는 통신판매중개자이며, 통신판매의 당사자가 아닙니다. 파티정보, 구매에 관한 의무와 책임은 판매자에게 있습니다.</div>
+            <div>PartyPlay는 소비자 보호와 안전거래를 위해 고객센터를 운영하고 있으며, 분쟁이 발생 된 경우 별도의 분쟁처리절차에 의거분쟁해결 및 청약철회 등이 진행 됩니다.</div>
+            <div>조장: 이동인 제작 인원: 3명(김승민, 이동인, 이호재) 상일미디어 고등학교: 서울특별시 강동구 천호대로219길 61</div>
+        </div>
+    </footer>
+</body>
+
+</html>

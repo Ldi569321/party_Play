@@ -90,3 +90,7 @@ main {
     justify-content: space-evenly;
     float: right;
 }
+
+.submit {
+    margin: 5px;
+}

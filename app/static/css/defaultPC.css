@@ -188,6 +188,7 @@ main {
     width: 65vw;
     background-color: #BBE1FA;
 
+    overflow-y: scroll;
 }
 
 .ad2 {

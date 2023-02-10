@@ -147,6 +147,7 @@ header {
     align-items: center;
     margin: 10px 10px 50px 10px;
     height: 66vh;
+    overflow: scroll;
 }
 
 .ad1 {

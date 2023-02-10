@@ -70,7 +70,7 @@ app.get('/main', (req, res) => {
         result.push(info);
       })
       if (req.session.uid != null || req.session.isLogined == true) {
-        res.render('mainFormLogined', { result: result, total: row_len });
+        res.render('mainFormLogined', { result: result, total: row_len, session_uid: req.session.uid });
 
       } else {
         req.session.uid = null;
@@ -104,7 +104,7 @@ app.get('/main', (req, res) => {
       })
       console.log(result);
       if (req.session.uid != null || req.session.isLogined == true) {
-        res.render('mainFormLogined', { result: result, total: row_len });
+        res.render('mainFormLogined', { result: result, total: row_len, session_uid: req.session.uid });
 
       } else {
         req.session.uid = null;
@@ -613,7 +613,7 @@ app.get('/recordDetails', (req, res) => {
 //문의내역
 app.get('/record', (req, res) => {
   if (req.session.uid != null || req.session.isLogined == true) {
-    const recordSQL = `SELECT service_num, category, question, DATE_FORMAT(date, "%Y-%m-%d") date, state FROM CustomerService WHERE id='${req.session.uid}';`;
+    const recordSQL = `SELECT service_num, category, question, DATE_FORMAT(date, "%Y-%m-%d") date, state FROM CustomerService WHERE id='${req.session.uid}' ORDER BY service_num DESC;`;
     conn.query(recordSQL, (err, row) => {
       const row_len = Object.keys(row).length;
       let result = [];
@@ -635,3 +635,85 @@ app.get('/record', (req, res) => {
     </script>`);
   }
 });
+
+
+//어드민 관리 섹션 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+app.get('/adminLusxO5L0NpJhJ8yqgv1v8t', (req, res) => {
+  if (req.session.uid == 'admin5693' || req.session.isLogined == true) {
+    const recordSQL = `SELECT service_num, category, question, DATE_FORMAT(date, "%Y-%m-%d") date, id, state FROM CustomerService ORDER BY service_num DESC;`;
+    conn.query(recordSQL, (err, row) => {
+      const row_len = Object.keys(row).length;
+      let result = [];
+      row.forEach(row => {
+        let info = {}
+        info.service_num = row.service_num;
+        info.category = row.category;
+        info.question = row.question;
+        info.date = row.date;
+        info.writer = row.id;
+        info.state = row.state;
+        result.push(info);
+      })
+      res.render('adminManagementForm', {result: result, total:row_len });
+    })
+  } else {
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    res.write(`<script>alert('잘못된 접근입니다..');
+    history.back();
+    </script>`);
+  }
+})
+
+app.get('/adminRecordAnswer', (req, res) => {
+  if (req.session.uid == 'admin5693' || req.session.isLogined == true) {
+    const recordDetailSQL = `SELECT service_num, category, question, DATE_FORMAT(date, "%Y-%m-%d") date, state, answer FROM CustomerService WHERE service_num='${req.query.service_num}';`;
+    conn.query(recordDetailSQL, (err, row) => {
+      if(err) throw err;
+      res.render('adminRecordAnswerForm', {
+        service_num: row[0].service_num,
+        category: row[0].category,
+        question: row[0].question,
+        date: row[0].date,
+        state: row[0].state,
+        answer: row[0].answer
+      });
+    })
+  } else {
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    res.write(`<script>alert('로그인후 이용 가능합니다.');
+    history.back();
+    </script>`);
+  }
+})
+
+app.post('/supportAnswer', (req, res) => {
+  if (req.session.uid == 'admin5693' || req.session.isLogined == true) {
+  console.log(req.body);
+  if(req.body.state == '답변완료'){
+  const supportAnswer = `UPDATE CustomerService SET answer = '${req.body.answer}', state = '2' WHERE service_num = '${req.body.service_num}';`;
+  conn.query(supportAnswer, (err, row) => {
+    if(err) throw err;
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    res.write(`<script>alert('답변 완료되었습니다.');
+    location.href="adminLusxO5L0NpJhJ8yqgv1v8t";
+    </script>`);
+  })
+  }else if(req.body.state == '검토중') {
+    const supportAnswer = `UPDATE CustomerService SET state = '1' WHERE service_num = '${req.body.service_num}';`;
+    conn.query(supportAnswer, (err, row) => {
+      if(err) throw err;
+      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+      res.write(`<script>alert('상태가 검토중으로 변경되었습니다.');
+      location.href="adminLusxO5L0NpJhJ8yqgv1v8t";
+      </script>`);
+    })
+  }
+  
+} else {
+  res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+  res.write(`<script>alert('로그인후 이용 가능합니다.');
+  history.back();
+  </script>`);
+}
+})

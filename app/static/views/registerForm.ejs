@@ -60,19 +60,17 @@
             <form action="/NewRegister" method="post" accept-charset="UTF-8">
                 <div class="regBox">
                     <div class="regInfo">
-                        <div>
                             <label>
                                 아이디: <input type="text" oninput="Input(this)" name="userId" id="userId" placeholder="아이디를 입력해주세요" minlength="6" maxlength="15" required>
                             </label>
                             <input class="overlapCheck" type="button" id="overlapCheck" value="중복확인">
-                            <div class="additional" id="userid_msg">아이디는 6~15개의 알파벳, 숫자로 구성되야 합니다.</div>
-                        </div>
+                            <div class="additional">아이디는 6~15개의 알파벳, 숫자로 구성가능합니다</div>
                         <br>
 
                         <label>
                             비밀번호: <input type="password" oninput="Input(this)" name="password" id="password" placeholder="비밀번호를 입력해주세요" minlength="6" maxlength="15" required> 
                         </label>
-                        <div class="additional">비밀번호는 6~15개의 알파벳과 숫자로 구성되야 합니다.</div>
+                        <div class="additional">비밀번호는 6~15개의 알파벳, 숫자로 구성가능합니다</div>
                         <br>
 
                         <label>
@@ -88,9 +86,8 @@
                         <br>
 
                         <label>
-                            전화번호: <input type="tel" name="tel" id="tel" placeholder="전화번호를 입력해주세요" required>
+                            전화번호: <input type="tel" name="tel" oninput="autoHyphen(this)" maxlength="13" id="tel" placeholder="전화번호를 입력해주세요" required>
                         </label>
-                        <div class="additional"></div>
                         <br>
                     </div>
                     <div class="regHardInfo">
